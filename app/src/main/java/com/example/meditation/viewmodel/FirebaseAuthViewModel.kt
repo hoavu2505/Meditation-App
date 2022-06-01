@@ -13,6 +13,7 @@ class FirebaseAuthViewModel  : ViewModel() {
     var userMutableLiveData = firebaseAuthRepository.userMutableLiveData
     var signOutMutableLiveData = firebaseAuthRepository.signOutMutableLiveData
     var isEmailAlreadyExists = firebaseAuthRepository.isEmailAlreadyExists
+    var isEmailSent = firebaseAuthRepository.isEmailSent
 
     fun register (name: String,
                   email: String,
@@ -30,6 +31,10 @@ class FirebaseAuthViewModel  : ViewModel() {
 
     fun firebaseAuthWithGoogle(idToken: String){
         firebaseAuthRepository.firebaseAuthWithGoogle(idToken)
+    }
+
+    suspend fun sendPasswordResetEmail(email: String){
+        firebaseAuthRepository.sendPasswordResetEmail(email)
     }
 
 }

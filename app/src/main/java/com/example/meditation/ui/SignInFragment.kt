@@ -46,7 +46,7 @@ class SignInFragment : Fragment(), LifecycleOwner {
 
         firebaseAuthViewModel.isEmailAlreadyExists.observe(viewLifecycleOwner, Observer { isExist ->
             if (isExist == false){
-                Toast.makeText(context, "Email không tồn tại", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Email này không tồn tại", Toast.LENGTH_SHORT).show()
                 binding.btnSignIn.text = getText(R.string.sign_in)
                 binding.progressSignIn.visibility = View.INVISIBLE
             }
@@ -63,9 +63,13 @@ class SignInFragment : Fragment(), LifecycleOwner {
             binding.edtPassword.clearFocus()
         }
 
+        binding.tvForgotPassword.setOnClickListener { findNavController().navigate(R.id.action_signInFragment_to_forgotPasswordFragment) }
+
         binding.textViewLogin.setOnClickListener { findNavController().navigate(R.id.action_signInFragment_to_signUpFragment) }
 
-        binding.btnSignIn.setOnClickListener { checkInfo() }
+        binding.btnSignIn.setOnClickListener {
+            checkInfo()
+        }
 
         binding.imgBack.setOnClickListener { findNavController().popBackStack() }
 
@@ -132,14 +136,9 @@ class SignInFragment : Fragment(), LifecycleOwner {
                 binding.edtPassword.requestFocus()
             }
 
-//            else -> login(email, password)
             else -> {
-
                 binding.btnSignIn.text = null
                 binding.progressSignIn.visibility = View.VISIBLE
-//                Handler().postDelayed({
-//                    firebaseAuthViewModel.login(email, password)
-//                }, 2000)
                 firebaseAuthViewModel.login(email, password)
             }
 

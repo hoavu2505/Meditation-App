@@ -18,6 +18,7 @@
 
     <string name="wellcome_back">Chào mừng quay trở lại!</string>
     <string name="create_account">Tạo tài khoản</string>
+    <string name="lb_forgot_password">Quên mật khẩu</string>
 
     <string name="facebook_sign_in">Đăng nhập bằng Facebook</string>
     <string name="google_sign_in">Đăng nhập bằng Google</string>
@@ -27,6 +28,7 @@
 
     <string name="or_login">HOẶC ĐĂNG NHẬP BẰNG EMAIL</string>
     <string name="or_sign_up">HOẶC ĐĂNG KÝ BẰNG EMAIL</string>
+    <string name="input_email">HÃY NHẬP EMAIL BẠN CẦN LẤY LẠI MẬT KHẨU</string>
 
     <string name="name">Tên</string>
     <string name="email">Email</string>

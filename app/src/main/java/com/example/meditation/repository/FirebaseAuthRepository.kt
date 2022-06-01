@@ -14,14 +14,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
-
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
 class FirebaseAuthRepository  {
 
     var userMutableLiveData = MutableLiveData<FirebaseUser>()
     var signOutMutableLiveData = MutableLiveData<Boolean>()
-    var isEmailAlreadyExists = MutableLiveData<Boolean>(false)
+    var isEmailAlreadyExists = MutableLiveData<Boolean>()
+    var isEmailSent = MutableLiveData<Boolean>()
     private var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     private val defaultAvatar = "https://firebasestorage.googleapis.com/v0/b/meditation-app-ec6d8.appspot.com/o/default_avatar.png?alt=media&token=0674b6b3-c549-4c8f-8f4b-48667092d935"
@@ -69,26 +71,27 @@ class FirebaseAuthRepository  {
 
     }
 
-    fun login (email: String, password: String){
-        mAuth.fetchSignInMethodsForEmail(email)
-            .addOnCompleteListener {
-                val check = !it.result.signInMethods!!.isEmpty()
+    fun login (email: String?, password: String){
+        if (email != null){
+            mAuth.fetchSignInMethodsForEmail(email)
+                .addOnCompleteListener {
+                    val check = !it.result.signInMethods!!.isEmpty()
 
-                if (check){
-                    mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful){
-                                userMutableLiveData.postValue(mAuth.currentUser)
-                            }else{
-                                Log.e("TAG", "loginUserWithEmail:failure", task.exception)
+                    if (check){
+                        mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful){
+                                    userMutableLiveData.postValue(mAuth.currentUser)
+                                }else{
+                                    Log.e("TAG", "loginUserWithEmail:failure", task.exception)
+                                }
                             }
-                        }
-                }
-                else{
-                    isEmailAlreadyExists.postValue(false)
+                    }
+                    else{
+                        isEmailAlreadyExists.postValue(false)
+                    }
                 }
         }
-
     }
 
     fun firebaseAuthWithGoogle(idToken: String){
@@ -121,6 +124,28 @@ class FirebaseAuthRepository  {
         signOutMutableLiveData.postValue(true)
     }
 
+    suspend fun sendPasswordResetEmail(email: String){
+        withContext(Dispatchers.IO){
+
+            mAuth.fetchSignInMethodsForEmail(email)
+                .addOnCompleteListener {
+                    val check = !it.result.signInMethods!!.isEmpty()
+
+                    if (check){
+                        mAuth.sendPasswordResetEmail(email)
+                            .addOnCompleteListener {task ->
+                                if (task.isSuccessful){
+                                    isEmailSent.postValue(true)
+                                }
+                            }
+                    }else{
+                        isEmailAlreadyExists.postValue(false)
+                    }
+
+                }
+
+        }
+    }
 
 }
 
