@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/bottom_nav_icon_color.xml" value="0.1575" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/bottom_nav_icon_color_dark.xml" value="0.2335" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/check_box_tint.xml" value="0.253" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/circle.xml" value="0.287" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/circle_fill.xml" value="0.2885" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/circle_fill_light.xml" value="0.346" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/circle_indicatior.xml" value="0.3485" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/circle_play_button.xml" value="0.287" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/circle_play_button_2.xml" value="0.287" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/cursor_color.xml" value="0.253" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/custom_check_box.xml" value="0.3635" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/custom_check_box_unchecked.xml" value="0.3635" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/custom_edit_text.xml" value="0.187" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/dark_bottom_nav.xml" value="0.216" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_avatar.xml" value="0.3435" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_back.xml" value="0.333" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_back_light.xml" value="0.284" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_bell.xml" value="0.2885" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_close_dark.xml" value="0.3635" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_close_light.xml" value="0.3635" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_edit.xml" value="0.299" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_ellipse.xml" value="0.22" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_focus.xml" value="0.2885" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_frame.xml" value="0.221" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_google.xml" value="0.333" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_home.xml" value="0.2885" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_img1.xml" value="0.3405" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_meditate_background.xml" value="0.25" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_meditation.xml" value="0.2885" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_pause.xml" value="0.299" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_placeholder.xml" value="0.1965" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_play.xml" value="0.284" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_play_button.xml" value="0.287" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_play_light.xml" value="0.284" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_sleep.xml" value="0.2885" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_sleep_background.xml" value="0.3405" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_sleep_content_img.xml" value="0.284" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_sleep_play_background.xml" value="0.287" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_sound_light.xml" value="0.3465" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_vecteezy_woman_sitting_meditating__1.xml" value="0.3445" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_vector.xml" value="0.333" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/layout_background_border.xml" value="0.2885" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/light_bottom_nav.xml" value="0.216" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/res_meditation.xml" value="0.2335" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/shape_focus.xml" value="0.22" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/shape_meditate.xml" value="0.25" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/activity_main.xml" value="0.1319078947368421" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/activity_splash.xml" value="0.22894736842105262" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_account.xml" value="0.22894736842105262" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_account_info.xml" value="0.22006578947368421" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_alarm.xml" value="0.22894736842105262" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_bed_time_reminder.xml" value="0.22894736842105262" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_category_detail.xml" value="0.18" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_content_detail_dark.xml" value="0.18032786885245902" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_content_detail_light.xml" value="0.22894736842105262" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_course_detail.xml" value="0.22" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_edit_name.xml" value="0.22894736842105262" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_first_screen.xml" value="0.284737067122702" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_focus.xml" value="0.18" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_home_login.xml" value="0.22" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_meditate_reminder.xml" value="0.22894736842105262" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_meditation.xml" value="0.16" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_notification.xml" value="0.25" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_on_board.xml" value="0.25" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_play_content_dark.xml" value="0.14" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_play_content_light.xml" value="0.2" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_second_screen.xml" value="0.2731936725096195" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_setting_account.xml" value="0.2" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_sign_in.xml" value="0.2" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_sign_up.xml" value="0.17" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_sleep.xml" value="0.2" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_splash.xml" value="0.25" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_splash_screen.xml" value="0.22894736842105262" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_third_screen.xml" value="0.2731936725096195" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/list_audio_item.xml" value="0.25" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/list_item_content.xml" value="0.25" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/list_item_horizontal.xml" value="0.25" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/list_item_sleep_content.xml" value="0.22894736842105262" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/list_item_staggered.xml" value="0.25" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/menu/bottom_menu.xml" value="0.22631578947368422" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

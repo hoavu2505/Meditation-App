@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_ellipse"
+        android:start="-100dp"
+        android:end="-100dp">
+    </item>
+
+    <item android:top="200dp">
+        <shape>
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+
+</layer-list>

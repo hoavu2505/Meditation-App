@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#8C79EA</color>
+    <color name="purple_500">#8C79EA</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="black_2">#373737</color>
+    <color name="light_black">#3F414E</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gray">#F2F3F7</color>
+    <color name="gray_2">#A1A4B2</color>
+    <color name="gray_3">#A0A3B1</color>
+    <color name="gray_4">#5A6175</color>
+    <color name="gray_5">#BCBCBC</color>
+    <color name="gray_6">#E4E6FD</color>
+    <color name="sleep_text_color_1">#E6E7F2</color>
+    <color name="sleep_text_color_2">#98A1BD</color>
+    <color name="facebook">#7583CA</color>
+
+    <color name="light_purple">#C6BAFE</color>
+    <color name="light_yellow">#FFECCC</color>
+    <color name="light_yellow_2">#F7E8D0</color>
+    <color name="light_gold">#FFE7BF</color>
+    <color name="pale_brown">#FAF8F5</color>
+    <color name="cyan_light">#CDF0EA</color>
+    <color name="cyan">#B3D3CE</color>
+    <color name="home_1">#8E97FD</color>
+    <color name="home_2">#FFBCD1</color>
+    <color name="gray_start_button">#EBEAEC</color>
+
+    <color name="main_background">#8C79EA</color>
+    <color name="dark_background">#030C22</color>
+    <color name="dark_background_bottom_nav">#040F2C</color>
+    <color name="color_for_dark_background">#DCDCDC</color>
+
+</resources>

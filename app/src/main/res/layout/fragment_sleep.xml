@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_background"
+    app:layoutDescription="@xml/fragment_sleep_scene"
+    tools:context=".ui.SleepFragment">
+
+    <ImageView
+        android:id="@+id/img_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_sleep_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-50dp"
+        app:layout_constraintTop_toBottomOf="@id/img_background">
+
+        <TextView
+            android:id="@+id/tv_sleep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bold"
+            android:text="Giấc ngủ"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="26dp"/>
+
+        <LinearLayout
+            android:id="@+id/ly_sound_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_sleep">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_sound_light" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/semi_bold"
+                android:text="Sound"
+                android:textColor="@color/gray_5"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_heading"
+            android:layout_width="@dimen/_275sdp"
+            android:layout_height="109dp"
+            app:layout_constraintTop_toBottomOf="@id/ly_sound_video"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="37dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/light_black">
+
+            <ImageView
+                android:id="@+id/img_heading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black"
+                android:alpha="0.1"/>
+            
+            <TextView
+                android:id="@+id/tv_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="28sp"
+                android:textColor="@color/light_gold"
+                android:fontFamily="@font/abhaya_libre_regular"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="80dp"/>
+
+<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_gravity="bottom|right"-->
+<!--                android:layout_marginEnd="20dp"-->
+<!--                android:layout_marginBottom="20dp"-->
+<!--                app:elevation="0dp"-->
+<!--                app:backgroundTint="@color/white"-->
+<!--                android:src="@drawable/ic_play"-->
+<!--                app:fabCustomSize="41dp"-->
+<!--                app:maxImageSize="12dp"/>-->
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_sleep_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/card_heading"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashScreenFragment">
+
+    <fragment
+        android:id="@+id/onBoardFragment"
+        android:name="com.example.meditation.onboard.OnBoardFragment"
+        android:label="fragment_on_board"
+        tools:layout="@layout/fragment_on_board" >
+        <action
+            android:id="@+id/action_onBoardFragment_to_homeLoginFragment"
+            app:destination="@id/homeLoginFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/homeLoginFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_onBoardFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/homeLoginFragment"
+        android:name="com.example.meditation.ui.HomeLoginFragment"
+        android:label="fragment_home_login"
+        tools:layout="@layout/fragment_home_login" >
+        <action
+            android:id="@+id/action_homeLoginFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_homeLoginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.meditation.ui.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/signUpFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.meditation.ui.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.meditation.ui.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_homeLoginFragment"
+            app:destination="@id/homeLoginFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/homeLoginFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_homeFragment_to_accountInfoFragment"
+            app:destination="@id/accountInfoFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_splashScreenFragment"
+            app:destination="@id/splashScreenFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splashScreenFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_homeFragment_to_contentDetailLightFragment"
+            app:destination="@id/contentDetailLightFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_contentDetailDarkFragment"
+            app:destination="@id/contentDetailDarkFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/meditationFragment"
+        android:name="com.example.meditation.ui.MeditationFragment"
+        android:label="fragment_meditation"
+        tools:layout="@layout/fragment_meditation" >
+        <action
+            android:id="@+id/action_meditationFragment_to_categoryDetailFragment"
+            app:destination="@id/categoryDetailFragment" />
+        <action
+            android:id="@+id/action_meditationFragment_to_splashScreenFragment"
+            app:destination="@id/splashScreenFragment" />
+        <action
+            android:id="@+id/action_meditationFragment_to_contentDetailLightFragment"
+            app:destination="@id/contentDetailLightFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sleepFragment"
+        android:name="com.example.meditation.ui.SleepFragment"
+        android:label="fragment_sleep"
+        tools:layout="@layout/fragment_sleep" >
+        <action
+            android:id="@+id/action_sleepFragment_to_contentDetailDarkFragment"
+            app:destination="@id/contentDetailDarkFragment" />
+        <action
+            android:id="@+id/action_sleepFragment_to_splashScreenFragment"
+            app:destination="@id/splashScreenFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splashScreenFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/focusFragment"
+        android:name="com.example.meditation.ui.FocusFragment"
+        android:label="fragment_focus"
+        tools:layout="@layout/fragment_focus" >
+        <action
+            android:id="@+id/action_focusFragment_to_categoryDetailFragment"
+            app:destination="@id/categoryDetailFragment" />
+        <action
+            android:id="@+id/action_focusFragment_to_splashScreenFragment"
+            app:destination="@id/splashScreenFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splashScreenFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_focusFragment_to_contentDetailLightFragment"
+            app:destination="@id/contentDetailLightFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryDetailFragment"
+        android:name="com.example.meditation.ui.CategoryDetailFragment"
+        android:label="fragment_category_detail"
+        tools:layout="@layout/fragment_category_detail" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_categoryDetailFragment_to_contentDetailLightFragment"
+            app:destination="@id/contentDetailLightFragment" />
+        <argument
+            android:name="type"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_categoryDetailFragment_to_courseDetailFragment"
+            app:destination="@id/courseDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/contentDetailLightFragment"
+        android:name="com.example.meditation.ui.ContentDetailLightFragment"
+        android:label="fragment_content_detail_light"
+        tools:layout="@layout/fragment_content_detail_light" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="content"
+            app:argType="com.example.meditation.model.Content" />
+        <action
+            android:id="@+id/action_contentDetailLightFragment_to_playContentLightFragment"
+            app:destination="@id/playContentLightFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/contentDetailDarkFragment"
+        android:name="com.example.meditation.ui.ContentDetailDarkFragment"
+        android:label="fragment_content_detail_dark"
+        tools:layout="@layout/fragment_content_detail_dark" >
+        <action
+            android:id="@+id/action_contentDetailDarkFragment_to_playContentDarkFragment"
+            app:destination="@id/playContentDarkFragment" />
+        <argument
+            android:name="content"
+            app:argType="com.example.meditation.model.Content" />
+    </fragment>
+    <fragment
+        android:id="@+id/playContentDarkFragment"
+        android:name="com.example.meditation.ui.PlayContentDarkFragment"
+        android:label="fragment_play_content_dark"
+        tools:layout="@layout/fragment_play_content_dark" >
+        <argument
+            android:name="content"
+            app:argType="com.example.meditation.model.Content" />
+    </fragment>
+    <fragment
+        android:id="@+id/playContentLightFragment"
+        android:name="com.example.meditation.ui.PlayContentLightFragment"
+        android:label="fragment_play_content_light"
+        tools:layout="@layout/fragment_play_content_light" >
+        <argument
+            android:name="content"
+            app:argType="com.example.meditation.model.Content" />
+        <argument
+            android:name="audio"
+            app:argType="string" />
+        <argument
+            android:name="position"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountInfoFragment"
+        android:name="com.example.meditation.ui.AccountInfoFragment"
+        android:label="fragment_account_info"
+        tools:layout="@layout/fragment_account_info" >
+        <action
+            android:id="@+id/action_accountInfoFragment_to_settingAccountFragment"
+            app:destination="@id/settingAccountFragment" />
+        <action
+            android:id="@+id/action_accountInfoFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/settingAccountFragment"
+        android:name="com.example.meditation.ui.SettingAccountFragment"
+        android:label="fragment_setting_account"
+        tools:layout="@layout/fragment_setting_account" >
+        <action
+            android:id="@+id/action_settingAccountFragment_to_homeLoginFragment"
+            app:destination="@id/homeLoginFragment" />
+        <action
+            android:id="@+id/action_settingAccountFragment_to_accountInfoFragment"
+            app:destination="@id/accountInfoFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/accountInfoFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_settingAccountFragment_to_accountFragment"
+            app:destination="@id/accountFragment" />
+        <action
+            android:id="@+id/action_settingAccountFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.example.meditation.ui.SplashFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_onBoardFragment"
+            app:destination="@id/onBoardFragment" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.meditation.ui.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_accountFragment_to_editNameFragment"
+            app:destination="@id/editNameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editNameFragment"
+        android:name="com.example.meditation.ui.EditNameFragment"
+        android:label="fragment_edit_name"
+        tools:layout="@layout/fragment_edit_name" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.example.meditation.ui.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" >
+        <action
+            android:id="@+id/action_notificationFragment_to_meditateReminderFragment"
+            app:destination="@id/meditateReminderFragment" />
+        <action
+            android:id="@+id/action_notificationFragment_to_alarmFragment"
+            app:destination="@id/alarmFragment" />
+        <action
+            android:id="@+id/action_notificationFragment_to_bedTimeReminderFragment"
+            app:destination="@id/bedTimeReminderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/meditateReminderFragment"
+        android:name="com.example.meditation.ui.MeditateReminderFragment"
+        android:label="fragment_meditate_reminder"
+        tools:layout="@layout/fragment_meditate_reminder" />
+    <fragment
+        android:id="@+id/alarmFragment"
+        android:name="com.example.meditation.AlarmFragment"
+        android:label="fragment_alarm"
+        tools:layout="@layout/fragment_alarm" />
+    <fragment
+        android:id="@+id/bedTimeReminderFragment"
+        android:name="com.example.meditation.BedTimeReminderFragment"
+        android:label="fragment_bed_time_reminder"
+        tools:layout="@layout/fragment_bed_time_reminder" />
+    <fragment
+        android:id="@+id/courseDetailFragment"
+        android:name="com.example.meditation.CourseDetailFragment"
+        android:label="fragment_course_detail"
+        tools:layout="@layout/fragment_course_detail" >
+        <argument
+            android:name="content"
+            app:argType="com.example.meditation.model.Content" />
+        <action
+            android:id="@+id/action_courseDetailFragment_to_playContentLightFragment"
+            app:destination="@id/playContentLightFragment" />
+    </fragment>
+</navigation>

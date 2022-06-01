@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.EditNameFragment">
+
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="36dp"
+        android:layout_marginStart="33dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Sửa tên"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/bold"
+        android:layout_marginTop="30dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ly_edt_name"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_back"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        android:textColorHint="@color/gray_3">
+
+        <EditText
+            android:id="@+id/edt_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/custom_edit_text"
+            android:cursorVisible="false"
+            android:fontFamily="@font/regular"
+            android:hint="@string/name"
+            android:paddingHorizontal="30dp"
+            android:textSize="15sp"
+            android:singleLine="true"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_save"
+        android:layout_width="323dp"
+        android:layout_height="@dimen/height_button"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/bold"
+        android:text="@string/save"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ly_edt_name" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_cancel"
+        android:layout_width="323dp"
+        android:layout_height="@dimen/height_button"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/bold"
+        android:text="@string/cancel"
+        android:backgroundTint="@color/gray"
+        android:textColor="@color/black"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_save" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

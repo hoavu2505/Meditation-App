@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AlarmFragment">
+
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="36dp"
+        android:layout_marginStart="33dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Báo thức"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/bold"
+        android:layout_marginTop="30dp"/>
+
+    <RelativeLayout
+        android:id="@+id/ly_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/img_back"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="70dp"
+        android:paddingHorizontal="33dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lb_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nhắc tôi vào lúc"
+            android:textSize="14sp"
+            android:textColor="@color/gray_3"
+            android:fontFamily="@font/bold" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lb_time"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/bold"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <Switch
+        android:id="@+id/sw_alarm"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        app:layout_constraintTop_toBottomOf="@id/img_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="33dp"
+        tools:ignore="UseSwitchCompatOrMaterialXml"
+        android:theme="@style/SwitchColor"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

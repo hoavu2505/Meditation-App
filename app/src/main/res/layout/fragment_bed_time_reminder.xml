@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/dark_background"
+    tools:context=".BedTimeReminderFragment">
+
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back_light"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="36dp"
+        android:layout_marginStart="33dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Giờ đi ngủ"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/bold"
+        android:layout_marginTop="30dp"/>
+
+    <RelativeLayout
+        android:id="@+id/ly_time_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/img_back"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="70dp"
+        android:paddingHorizontal="33dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lb_time_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bold"
+            android:text="Chuẩn bị giấc ngủ vào lúc"
+            android:textColor="@color/gray_5"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_time_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lb_time_1"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/bold"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <Switch
+        android:id="@+id/sw_reminder_1"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        app:layout_constraintTop_toBottomOf="@id/img_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="33dp"
+        tools:ignore="UseSwitchCompatOrMaterialXml"
+        android:theme="@style/SwitchColorDark"/>
+
+    <TextView
+        android:id="@+id/lb_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/bed_time_note"
+        android:textSize="14sp"
+        android:textColor="@color/gray_5"
+        android:fontFamily="@font/bold"
+        android:gravity="center"
+        android:paddingHorizontal="35dp"
+        android:lineSpacingExtra="5sp"
+        app:layout_constraintTop_toBottomOf="@id/ly_time_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="60dp"/>
+
+    <RelativeLayout
+        android:id="@+id/ly_time_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/lb_note"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="70dp"
+        android:paddingHorizontal="33dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lb_time_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bold"
+            android:text="Chuẩn bị giấc ngủ vào lúc"
+            android:textColor="@color/gray_5"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_time_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lb_time_2"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/bold"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <Switch
+        android:id="@+id/sw_reminder_2"
+        android:layout_width="48dp"
+        android:layout_height="24dp"
+        app:layout_constraintTop_toBottomOf="@id/lb_note"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="85dp"
+        android:layout_marginEnd="33dp"
+        tools:ignore="UseSwitchCompatOrMaterialXml"
+        android:theme="@style/SwitchColorDark"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">Meditation App</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="skip">Bỏ qua</string>
+
+    <string name="des_onboard_screen_1">We are here to help you get rid \n of the stress you might have.</string>
+    <string name="des_onboard_screen_2">We are always here to support \n you no matter what.</string>
+    <string name="des_onboard_screen_3">Our app will help you to stay \n energized all the time.</string>
+    <string name="get_started">Bắt đầu</string>
+    <string name="sign_up">Đăng ký</string>
+    <string name="sign_in">Đăng nhập</string>
+    <string name="Continue">Tiếp tục</string>
+    <string name="sign_out">Đăng xuất</string>
+    <string name="save">Lưu lại</string>
+    <string name="cancel">Huỷ bỏ</string>
+    <string name="play">Play</string>
+
+    <string name="wellcome_back">Chào mừng quay trở lại!</string>
+    <string name="create_account">Tạo tài khoản</string>
+
+    <string name="facebook_sign_in">Đăng nhập bằng Facebook</string>
+    <string name="google_sign_in">Đăng nhập bằng Google</string>
+
+    <string name="facebook_sign_up">Đăng ký bằng Facebook</string>
+    <string name="google_sign_up">Đăng ký bằng Google</string>
+
+    <string name="or_login">HOẶC ĐĂNG NHẬP BẰNG EMAIL</string>
+    <string name="or_sign_up">HOẶC ĐĂNG KÝ BẰNG EMAIL</string>
+
+    <string name="name">Tên</string>
+    <string name="email">Email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="forgot_password">Quên mật khẩu?</string>
+
+    <string name="have_account">Bạn đã có tài khoản?</string>
+    <string name="login_now">Đăng nhập ngay</string>
+    <string name="dont_have_account">Bạn chưa có tài khoản?</string>
+    <string name="sign_up_now">Đăng ký ngay</string>
+    <string name="agree">Tôi đồng ý với</string>
+    <string name="term_of_use">Điều khoản sử dụng</string>
+    <string name="home">Trang chủ</string>
+    <string name="meditation">Thiền định</string>
+    <string name="sleep">Ngủ</string>
+    <string name="focus">Tập trung</string>
+
+    <string name="description_content_sleep">Kết thúc cuối ngày với một chút giai điệu dịu dàng giúp rửa sạch căng thẳng sau ngày làm việc mệt mỏi.</string>
+    <string name="description_content">Một chiếc video dành cho người mới.</string>
+
+    <string name="account">Đăng nhập qua tài khoản \n</string>
+
+    <string name="meditate_reminder_title">Đến giờ rồi!!!</string>
+    <string name="meditate_reminder_des">Hãy bắt đầu thiền thôi nào.</string>
+
+    <string name="bed_time_note">Nhắc nhở này nhằm chuẩn bị cho giấc ngủ. \nChúng tôi khuyến nghị nên đặt thời gian chuẩn bị trước khi ngủ khoảng 30 phút.</string>
+    <string name="label_session">Session: </string>
+
+    <string name="web_client_id">377456162285-fsbob9g6n6siteegvqgqnq80ou7d6ga5.apps.googleusercontent.com</string>
+
+    <string-array name="time">
+        <item>Chúc ngủ ngon</item>
+        <item>Chào buổi sáng</item>
+        <item>Chào buổi chiều</item>
+        <item>Chào buổi tối</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/homeFragment"
+        android:title="@string/home"
+        android:icon="@drawable/ic_home"/>
+
+    <item android:id="@+id/meditationFragment"
+        android:title="@string/meditation"
+        android:icon="@drawable/ic_meditation"/>
+
+    <item android:id="@+id/sleepFragment"
+        android:title="@string/sleep"
+        android:icon="@drawable/ic_sleep"/>
+
+    <item android:id="@+id/focusFragment"
+        android:title="@string/focus"
+        android:icon="@drawable/ic_focus"/>
+</menu>
