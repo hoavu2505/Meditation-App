@@ -75,7 +75,25 @@ class PlayContentDarkFragment : Fragment() {
             binding.imgAction.setImageResource(R.drawable.ic_pause)
             binding.lyAction.visibility = View.VISIBLE
             binding.lyProgress.visibility = View.INVISIBLE
+
+            initProgressbar(mediaPlayer)
         }
+    }
+
+    private fun initProgressbar(mediaPlayer: MediaPlayer) {
+        binding.progressBar.max = mediaPlayer.duration
+
+        val handler = Handler()
+        handler.postDelayed(object : Runnable{
+            override fun run() {
+                try {
+                    binding.progressBar.progress = mediaPlayer.currentPosition
+                    handler.postDelayed(this, 0)
+                }catch (e: Exception){
+                    binding.progressBar.progress = 0
+                }
+            }
+        }, 0)
     }
 
     private fun ui(content: Content) {

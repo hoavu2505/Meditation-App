@@ -46,6 +46,7 @@
         <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/ic_vector.xml" value="0.333" />
         <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/layout_background_border.xml" value="0.2885" />
         <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/light_bottom_nav.xml" value="0.216" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/progressbar_drawable.xml" value="0.3455" />
         <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/res_meditation.xml" value="0.2335" />
         <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/shape_focus.xml" value="0.22" />
         <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/drawable/shape_meditate.xml" value="0.25" />
@@ -69,8 +70,8 @@
         <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_meditation.xml" value="0.16" />
         <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_notification.xml" value="0.25" />
         <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_on_board.xml" value="0.25" />
-        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_play_content_dark.xml" value="0.14" />
-        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_play_content_light.xml" value="0.2" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_play_content_dark.xml" value="0.21" />
+        <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_play_content_light.xml" value="0.45759368836291914" />
         <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_second_screen.xml" value="0.2731936725096195" />
         <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_setting_account.xml" value="0.2" />
         <entry key="..\:/Users/Hoa Vu/Desktop/Meditation/app/src/main/res/layout/fragment_sign_in.xml" value="0.2" />
