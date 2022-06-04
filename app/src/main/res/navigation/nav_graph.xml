@@ -102,6 +102,12 @@
         <action
             android:id="@+id/action_homeFragment_to_contentDetailDarkFragment"
             app:destination="@id/contentDetailDarkFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_courseDetailFragment"
+            app:destination="@id/courseDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_playContentVideoFragment"
+            app:destination="@id/playContentVideoFragment" />
     </fragment>
     <fragment
         android:id="@+id/meditationFragment"
@@ -117,6 +123,9 @@
         <action
             android:id="@+id/action_meditationFragment_to_contentDetailLightFragment"
             app:destination="@id/contentDetailLightFragment" />
+        <action
+            android:id="@+id/action_meditationFragment_to_courseDetailFragment"
+            app:destination="@id/courseDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/sleepFragment"
@@ -171,6 +180,9 @@
         <action
             android:id="@+id/action_categoryDetailFragment_to_courseDetailFragment"
             app:destination="@id/courseDetailFragment" />
+        <action
+            android:id="@+id/action_categoryDetailFragment_to_playContentVideoFragment"
+            app:destination="@id/playContentVideoFragment" />
     </fragment>
     <fragment
         android:id="@+id/contentDetailLightFragment"
@@ -307,17 +319,17 @@
         tools:layout="@layout/fragment_meditate_reminder" />
     <fragment
         android:id="@+id/alarmFragment"
-        android:name="com.example.meditation.AlarmFragment"
+        android:name="com.example.meditation.ui.AlarmFragment"
         android:label="fragment_alarm"
         tools:layout="@layout/fragment_alarm" />
     <fragment
         android:id="@+id/bedTimeReminderFragment"
-        android:name="com.example.meditation.BedTimeReminderFragment"
+        android:name="com.example.meditation.ui.BedTimeReminderFragment"
         android:label="fragment_bed_time_reminder"
         tools:layout="@layout/fragment_bed_time_reminder" />
     <fragment
         android:id="@+id/courseDetailFragment"
-        android:name="com.example.meditation.CourseDetailFragment"
+        android:name="com.example.meditation.ui.CourseDetailFragment"
         android:label="fragment_course_detail"
         tools:layout="@layout/fragment_course_detail" >
         <argument
@@ -329,7 +341,17 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.example.meditation.ForgotPasswordFragment"
+        android:name="com.example.meditation.ui.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
+
+    <fragment
+        android:id="@+id/playContentVideoFragment"
+        android:name="com.example.meditation.ui.PlayContentVideoFragment"
+        android:label="fragment_play_content_video"
+        tools:layout="@layout/fragment_play_content_video" >
+        <argument
+            android:name="content"
+            app:argType="com.example.meditation.model.Content" />
+    </fragment>
 </navigation>

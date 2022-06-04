@@ -14,7 +14,7 @@ import com.example.meditation.model.Content
 class ContentAdapter (private var contentList: ArrayList<Content>, var onClick: OnItemClickListener) : RecyclerView.Adapter<ContentAdapter.ContentViewHolder>() {
 
     interface OnItemClickListener{
-        fun onClickItem(content: Content, position: Int)
+        fun onClickItem(view : View, content: Content, position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
@@ -35,6 +35,7 @@ class ContentAdapter (private var contentList: ArrayList<Content>, var onClick: 
         val txtType : TextView = itemView.findViewById(R.id.tv_type)
         val txtDuration : TextView = itemView.findViewById(R.id.tv_duration)
         val imgContent : ImageView = itemView.findViewById(R.id.img_content)
+        val imgType : ImageView = itemView.findViewById(R.id.img_type)
 
         fun init(content: Content, action: OnItemClickListener, context: Context){
             txtName.text = content.name
@@ -42,8 +43,13 @@ class ContentAdapter (private var contentList: ArrayList<Content>, var onClick: 
             txtDuration.text = content.duration.toString() + " PHÚT"
             Glide.with(context).load(content.img).into(imgContent)
 
+            when (content.type){
+                "Sound" -> imgType.setImageResource(R.drawable.ic_sound)
+                "Video" -> imgType.setImageResource(R.drawable.ic_video)
+            }
+
             itemView.setOnClickListener {
-                action.onClickItem(content, adapterPosition)
+                action.onClickItem(itemView, content, adapterPosition)
             }
         }
     }

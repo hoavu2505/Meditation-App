@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ContentDetailLightFragment">
+    tools:context=".ui.ContentDetailLightFragment"
+    android:transitionName="content_detail_light_transition">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_img"

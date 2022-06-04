@@ -2,11 +2,16 @@ package com.example.meditation.ui
 
 import android.os.Bundle
 import android.view.*
+import android.widget.RelativeLayout
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +23,8 @@ import com.example.meditation.model.Content
 import com.example.meditation.theme.NavBar
 import com.example.meditation.theme.Theme
 import com.example.meditation.viewmodel.SleepContentViewModel
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -38,6 +45,8 @@ class SleepFragment : Fragment(), SleepContentAdapter.OnItemClickListerner, Life
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        showNavBar()
 
         contentViewModel.callData()
         contentViewModel.headingContentCallData()
@@ -75,29 +84,27 @@ class SleepFragment : Fragment(), SleepContentAdapter.OnItemClickListerner, Life
             }
         })
 
+//        onBackPressed()
 
         return view
     }
 
-    override fun onClickItem(content: Content, position: Int) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+    }
+
+    override fun onClickItem(itemView: View, content: Content, position: Int) {
+        materialMotion()
         val action = SleepFragmentDirections.actionSleepFragmentToContentDetailDarkFragment(content)
         findNavController().navigate(action)
     }
 
     private fun headingContentClickItem(content: Content){
+        materialMotion()
         val action = SleepFragmentDirections.actionSleepFragmentToContentDetailDarkFragment(content)
         findNavController().navigate(action)
-    }
-
-    private fun onBackPressed(){
-        val callback = object : OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.action_sleepFragment_to_splashScreenFragment)
-                hideNavBar()
-            }
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
     private fun hideNavBar() {
@@ -106,6 +113,26 @@ class SleepFragment : Fragment(), SleepContentAdapter.OnItemClickListerner, Life
 
     private fun showNavBar() {
         NavBar.showNavBar(requireActivity().findViewById(R.id.bottom_navigation))
+    }
+
+    private fun materialMotion(){
+        exitTransition = MaterialFadeThrough().apply {
+            duration = 100L
+        }
+
+        reenterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
+    }
+
+    private fun onBackPressed(){
+        val callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+
+                findNavController().popBackStack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
 }

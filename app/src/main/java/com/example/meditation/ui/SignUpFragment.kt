@@ -17,6 +17,12 @@ import com.example.meditation.databinding.FragmentSignUpBinding
 import com.example.meditation.theme.Theme
 import com.example.meditation.util.GoogleSignInOption
 import com.example.meditation.viewmodel.FirebaseAuthViewModel
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.FacebookSdk
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
@@ -26,13 +32,13 @@ class SignUpFragment : Fragment(), LifecycleOwner {
     private lateinit var binding : FragmentSignUpBinding
     private lateinit var firebaseAuthViewModel: FirebaseAuthViewModel
     private lateinit var gsc : GoogleSignInClient
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
+    private lateinit var callbackManager : CallbackManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        FacebookSdk.sdkInitialize(requireContext());
+
         firebaseAuthViewModel = ViewModelProvider(this)[FirebaseAuthViewModel::class.java]
     }
 
@@ -40,6 +46,14 @@ class SignUpFragment : Fragment(), LifecycleOwner {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        firebaseAuthViewModel.isFacebookLogin.observe(viewLifecycleOwner, Observer { isLogin ->
+            if (isLogin){
+                LoginManager.getInstance().logOut()
+                firebaseAuthViewModel.isFacebookLogin.postValue(false)
+            }
+        })
+
         firebaseAuthViewModel.userMutableLiveData.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 Toast.makeText(context, "Successful", Toast.LENGTH_SHORT).show()
@@ -78,9 +92,35 @@ class SignUpFragment : Fragment(), LifecycleOwner {
             GoogleSignInOption.init(requireContext())
         )
 
+        binding.btnFacebook.setOnClickListener { initFacebookLogin() }
+
         binding.btnGoogle.setOnClickListener { signInWithGoogle() }
 
         return view
+    }
+
+    private fun initFacebookLogin() {
+        // Initialize Facebook Login button
+        callbackManager = CallbackManager.Factory.create()
+
+        LoginManager.getInstance().logInWithReadPermissions(this,
+            listOf("email", "public_profile"))
+        LoginManager.getInstance().registerCallback(callbackManager, object :
+            FacebookCallback<LoginResult> {
+            override fun onSuccess(loginResult: LoginResult) {
+                Log.d("FbAuth", "facebook:onSuccess:$loginResult")
+                firebaseAuthViewModel.firebaseAuthWithFaceBook(loginResult.accessToken)
+            }
+
+            override fun onCancel() {
+                Log.d("FbAuth", "facebook:onCancel")
+            }
+
+            override fun onError(error: FacebookException) {
+                Log.d("FbAuth", "facebook:onError", error)
+            }
+        })
+
     }
 
     private fun signInWithGoogle() {
@@ -91,6 +131,10 @@ class SignUpFragment : Fragment(), LifecycleOwner {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 64206){
+            callbackManager.onActivityResult(requestCode, resultCode, data)
+        }
 
         if (requestCode == 100){
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)

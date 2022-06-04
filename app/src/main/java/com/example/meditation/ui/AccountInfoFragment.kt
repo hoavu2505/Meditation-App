@@ -119,7 +119,7 @@ class AccountInfoFragment : Fragment() {
                             .into(binding.circleAvatar)
                     }
                 }.addOnFailureListener {
-                    Log.d("error download default image ", it.toString())
+                    Log.d("error download default image", it.toString())
                 }
 
             }

@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
 class SleepContentAdapter(private var contentList: ArrayList<Content>, var onClick: OnItemClickListerner) : RecyclerView.Adapter<SleepContentAdapter.ContentViewHolder>() {
 
     interface OnItemClickListerner{
-        fun onClickItem(content: Content, position: Int)
+        fun onClickItem(itemView: View, content: Content, position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentViewHolder {
@@ -44,7 +44,7 @@ class SleepContentAdapter(private var contentList: ArrayList<Content>, var onCli
             Glide.with(context).load(content.img).into(imgContent)
 
             itemView.setOnClickListener {
-                action.onClickItem(content, adapterPosition)
+                action.onClickItem(itemView, content, adapterPosition)
             }
         }
     }

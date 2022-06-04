@@ -43,8 +43,4 @@
         <item name="android:colorForeground">#a79898</item>
     </style>
 
-    <style name="CircularProgressIndicator.Small" parent="Widget.MaterialComponents.CircularProgressIndicator.Small">
-        <item name="indicatorColor">@color/white</item>
-    </style>
-
 </resources>

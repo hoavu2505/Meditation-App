@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.navigation.fragment.findNavController
 import com.example.meditation.R
 import com.example.meditation.theme.NavBar
+import com.example.meditation.theme.Theme
 
 class SplashFragment : Fragment() {
 
@@ -19,6 +21,12 @@ class SplashFragment : Fragment() {
     ): View? {
 
         hideNavBar()
+
+        val mainActivity = requireActivity().findViewById<RelativeLayout>(R.id.main_activity)
+        mainActivity.background = requireActivity().getDrawable(R.color.white)
+
+        Theme.changeColorStatusBar(requireActivity().window, R.color.white, context)
+        Theme.setStatusBarLightText(requireActivity().window ,false)
 
         // Inflate the layout for this fragment
         Handler().postDelayed({

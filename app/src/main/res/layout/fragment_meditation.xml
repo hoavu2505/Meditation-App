@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/fragment_meditation_scene"
-    tools:context=".ui.MeditationFragment">
+    tools:context=".ui.MeditationFragment"
+    android:id="@+id/fragment_meditation">
 
 
     <ImageView
@@ -21,7 +22,7 @@
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-50dp"
+        android:layout_marginTop="-60dp"
         android:background="@drawable/shape_meditate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

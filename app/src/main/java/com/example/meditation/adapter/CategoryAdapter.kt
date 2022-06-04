@@ -15,7 +15,7 @@ import com.example.meditation.model.Category
 class CategoryAdapter(private var categoryList: ArrayList<Category>, var onClick: OnItemClickListener) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     interface OnItemClickListener{
-        fun onClickItem(category: Category, position: Int)
+        fun onClickItem(itemView: View, category: Category, position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -49,7 +49,7 @@ class CategoryAdapter(private var categoryList: ArrayList<Category>, var onClick
             txtCategoryName.text = category.name
 
             itemView.setOnClickListener {
-                action.onClickItem(category, adapterPosition)
+                action.onClickItem(itemView, category, adapterPosition)
             }
         }
     }

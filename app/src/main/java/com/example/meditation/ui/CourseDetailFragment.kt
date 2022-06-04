@@ -1,19 +1,21 @@
-package com.example.meditation
+package com.example.meditation.ui
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.meditation.R
 import com.example.meditation.adapter.AudioCourseAdapter
 import com.example.meditation.databinding.FragmentCourseDetailBinding
 import com.example.meditation.model.Content
+import com.google.android.material.transition.MaterialFadeThrough
+
 
 class CourseDetailFragment : Fragment(), AudioCourseAdapter.OnItemClickListener {
 
@@ -23,13 +25,25 @@ class CourseDetailFragment : Fragment(), AudioCourseAdapter.OnItemClickListener 
     private val args : CourseDetailFragmentArgs by navArgs()
     private lateinit var content : Content
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
+        returnTransition = MaterialFadeThrough().apply {
+            duration = 100L
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        content = args.content
-
         binding = FragmentCourseDetailBinding.inflate(layoutInflater, container, false)
+        val view = binding.root
+
+        content = args.content
 
         audioRecyclerView = binding.rcvAudio
         audioRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -41,7 +55,7 @@ class CourseDetailFragment : Fragment(), AudioCourseAdapter.OnItemClickListener 
 
         binding.imgBack.setOnClickListener { findNavController().popBackStack() }
 
-        return binding.root
+        return view
     }
 
     override fun onClickItem(audioCourse: String, position: Int) {

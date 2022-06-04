@@ -6,13 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.Fade
 import com.example.meditation.R
 import com.example.meditation.adapter.ContentAdapter
 import com.example.meditation.adapter.HomeContentAdapter
@@ -21,6 +25,10 @@ import com.example.meditation.model.Content
 import com.example.meditation.theme.NavBar
 import com.example.meditation.viewmodel.FocusContentViewModel
 import com.example.meditation.viewmodel.MeditationContentViewModel
+import com.google.android.material.transition.Hold
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
+import com.google.android.material.transition.MaterialSharedAxis
 
 class CategoryDetailFragment : Fragment(), ContentAdapter.OnItemClickListener, LifecycleOwner {
 
@@ -33,6 +41,15 @@ class CategoryDetailFragment : Fragment(), ContentAdapter.OnItemClickListener, L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
+
+        returnTransition = MaterialElevationScale(true).apply {
+            duration = 50L
+        }
+
         meditationContentViewModel = ViewModelProvider(this)[MeditationContentViewModel::class.java]
         focusContentViewModel = ViewModelProvider(this)[FocusContentViewModel::class.java]
     }
@@ -69,6 +86,12 @@ class CategoryDetailFragment : Fragment(), ContentAdapter.OnItemClickListener, L
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+    }
+
     private fun focusData() {
         focusContentViewModel.contentListLiveData.observe(viewLifecycleOwner, Observer { contentArrayList ->
             if (contentArrayList != null){
@@ -102,20 +125,37 @@ class CategoryDetailFragment : Fragment(), ContentAdapter.OnItemClickListener, L
         NavBar.showNavBar(requireActivity().findViewById(R.id.bottom_navigation))
     }
 
-    override fun onClickItem(content: Content, position: Int) {
+    override fun onClickItem(view: View, content: Content, position: Int) {
         Log.d("onClick", "${content.name}")
 
         when(content.type){
             "Sound" -> {
+                materialMotion()
                 val action = CategoryDetailFragmentDirections.actionCategoryDetailFragmentToContentDetailLightFragment(content.id!!, content)
                 findNavController().navigate(action)
             }
             "Course" -> {
+                materialMotion()
                 val action = CategoryDetailFragmentDirections.actionCategoryDetailFragmentToCourseDetailFragment(content)
+                findNavController().navigate(action)
+            }
+            "Video" -> {
+                materialMotion()
+                val action = CategoryDetailFragmentDirections.actionCategoryDetailFragmentToPlayContentVideoFragment(content)
                 findNavController().navigate(action)
             }
         }
 
+    }
+
+    private fun materialMotion(){
+        exitTransition = MaterialFadeThrough().apply {
+            duration = 100L
+        }
+
+        reenterTransition = MaterialElevationScale(true).apply {
+            duration = 300L
+        }
     }
 
 }

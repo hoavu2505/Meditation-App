@@ -7,9 +7,12 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.meditation.model.User
+import com.facebook.AccessToken
+import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -24,6 +27,7 @@ class FirebaseAuthRepository  {
     var signOutMutableLiveData = MutableLiveData<Boolean>()
     var isEmailAlreadyExists = MutableLiveData<Boolean>()
     var isEmailSent = MutableLiveData<Boolean>()
+    var isFacebookLogin = MutableLiveData<Boolean>()
     private var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     private val defaultAvatar = "https://firebasestorage.googleapis.com/v0/b/meditation-app-ec6d8.appspot.com/o/default_avatar.png?alt=media&token=0674b6b3-c549-4c8f-8f4b-48667092d935"
@@ -117,6 +121,35 @@ class FirebaseAuthRepository  {
                     Log.d("googleSignIn", "signInWithCredential: failure", task.exception)
                 }
         }
+    }
+
+    fun firebaseAuthWithFaceBook(token: AccessToken){
+        val credential = FacebookAuthProvider.getCredential(token.token)
+        mAuth.signInWithCredential(credential)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("FbAuth", "signInWithCredential:success")
+
+                    userMutableLiveData.postValue(mAuth.currentUser)
+                    isFacebookLogin.postValue(true)
+
+                    val user = mAuth.currentUser!!
+                    val mUser = User(user.uid,
+                        user.displayName.toString(),
+                        user.email.toString(),
+                        defaultAvatar,
+                        "facebook")
+
+                    FirebaseFirestore.getInstance().collection("User")
+                        .document(user.uid)
+                        .set(mUser)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.d("FbAuth", "signInWithCredential:failure", task.exception)
+                    isFacebookLogin.postValue(false)
+                }
+            }
     }
 
     fun signOut(){

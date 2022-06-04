@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.meditation.repository.FirebaseAuthRepository
+import com.facebook.AccessToken
 
 class FirebaseAuthViewModel  : ViewModel() {
 
@@ -14,6 +15,7 @@ class FirebaseAuthViewModel  : ViewModel() {
     var signOutMutableLiveData = firebaseAuthRepository.signOutMutableLiveData
     var isEmailAlreadyExists = firebaseAuthRepository.isEmailAlreadyExists
     var isEmailSent = firebaseAuthRepository.isEmailSent
+    var isFacebookLogin = firebaseAuthRepository.isFacebookLogin
 
     fun register (name: String,
                   email: String,
@@ -31,6 +33,10 @@ class FirebaseAuthViewModel  : ViewModel() {
 
     fun firebaseAuthWithGoogle(idToken: String){
         firebaseAuthRepository.firebaseAuthWithGoogle(idToken)
+    }
+
+    fun firebaseAuthWithFaceBook(token: AccessToken){
+        firebaseAuthRepository.firebaseAuthWithFaceBook(token)
     }
 
     suspend fun sendPasswordResetEmail(email: String){

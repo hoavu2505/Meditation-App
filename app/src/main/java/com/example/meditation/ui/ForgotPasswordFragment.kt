@@ -1,4 +1,4 @@
-package com.example.meditation
+package com.example.meditation.ui
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -11,11 +11,10 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.meditation.R
 import com.example.meditation.databinding.FragmentForgotPasswordBinding
 import com.example.meditation.theme.Theme
 import com.example.meditation.viewmodel.FirebaseAuthViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
 
 class ForgotPasswordFragment : Fragment(), LifecycleOwner {

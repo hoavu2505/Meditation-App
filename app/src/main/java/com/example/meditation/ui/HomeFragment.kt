@@ -74,15 +74,14 @@ class HomeFragment : Fragment(), LifecycleOwner, HomeContentAdapter.OnItemClickL
                 findNavController().navigate(R.id.action_homeFragment_to_homeLoginFragment)
                 hideNavBar()
             } else{
-                showNavBar()
-
                 firebaseAuthViewModel.userMutableLiveData.observe(viewLifecycleOwner, Observer {
                     getDisplayName(it)
                     userViewModel.getDataUser()
                 })
-
             }
         })
+
+        showNavBar()
 
         userViewModel.userMutableLiveData.observe(viewLifecycleOwner, Observer {
             if (it != null){
@@ -245,8 +244,20 @@ class HomeFragment : Fragment(), LifecycleOwner, HomeContentAdapter.OnItemClickL
             findNavController().navigate(action)
             hideNavBar()
         }else{
-            val action = HomeFragmentDirections.actionHomeFragmentToContentDetailLightFragment(content.id!!, content)
-            findNavController().navigate(action)
+            when(content.type){
+                "Sound" -> {
+                    val action = HomeFragmentDirections.actionHomeFragmentToContentDetailLightFragment(content.id!!, content)
+                    findNavController().navigate(action)
+                }
+                "Course" -> {
+                    val action = HomeFragmentDirections.actionHomeFragmentToCourseDetailFragment(content)
+                    findNavController().navigate(action)
+                }
+                "Video" -> {
+                    val action = HomeFragmentDirections.actionHomeFragmentToPlayContentVideoFragment(content)
+                    findNavController().navigate(action)
+                }
+            }
             hideNavBar()
         }
     }

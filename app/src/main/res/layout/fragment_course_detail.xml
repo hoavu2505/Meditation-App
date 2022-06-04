@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
-    tools:context=".CourseDetailFragment">
+    tools:context=".ui.CourseDetailFragment"
+    android:transitionName="content_detail_light_transition">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

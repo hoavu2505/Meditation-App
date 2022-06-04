@@ -7,9 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -23,6 +27,8 @@ import com.example.meditation.theme.NavBar
 import com.example.meditation.theme.Theme
 import com.example.meditation.viewmodel.MeditationCategoryViewModel
 import com.example.meditation.viewmodel.MeditationContentViewModel
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -90,29 +96,45 @@ class MeditationFragment : Fragment(), CategoryAdapter.OnItemClickListener, Life
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+    }
+
     private fun headingContentClickItem(content: Content) {
-        val action = MeditationFragmentDirections.actionMeditationFragmentToContentDetailLightFragment(content.id!!, content)
-        findNavController().navigate(action)
+        when(content.type){
+            "Course" -> {
+                val action = MeditationFragmentDirections.actionMeditationFragmentToCourseDetailFragment(content)
+                findNavController().navigate(action)
+                materialMotion()
+            }
+            "Sound" -> {
+                val action = MeditationFragmentDirections.actionMeditationFragmentToContentDetailLightFragment(content.id!!, content)
+                findNavController().navigate(action)
+                materialMotion()
+            }
+        }
         hideNavBar()
     }
 
-    override fun onClickItem(category: Category, position: Int) {
+    override fun onClickItem(itemView : View, category: Category, position: Int) {
         val type : String = "Meditation"
+        materialMotion()
         val action = MeditationFragmentDirections.actionMeditationFragmentToCategoryDetailFragment(category.id!!, category.name!!, type)
         findNavController().navigate(action)
         Log.e("category", "${category.id}")
         hideNavBar()
     }
 
-    private fun onBackPressed(){
-        val callback = object : OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-//                findNavController().navigate(R.id.action_meditationFragment_to_splashScreenFragment)
-//                hideNavBar()
-            }
+    private fun materialMotion(){
+        exitTransition = MaterialFadeThrough().apply {
+            duration = 100L
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
+        reenterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
     }
 
     private fun hideNavBar() {

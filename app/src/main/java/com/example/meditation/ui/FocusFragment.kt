@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -21,6 +24,8 @@ import com.example.meditation.theme.NavBar
 import com.example.meditation.theme.Theme
 import com.example.meditation.viewmodel.FocusCategoryViewModel
 import com.example.meditation.viewmodel.FocusContentViewModel
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -83,28 +88,35 @@ class FocusFragment : Fragment(), CategoryAdapter.OnItemClickListener {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+    }
+
     private fun headingContentClickItem(content: Content) {
         val action = FocusFragmentDirections.actionFocusFragmentToContentDetailLightFragment(content.id!!, content)
+        materialMotion()
         findNavController().navigate(action)
         hideNavBar()
     }
 
-    override fun onClickItem(category: Category, position: Int) {
+    override fun onClickItem(itemView: View, category: Category, position: Int) {
         val type : String = "Focus"
+        materialMotion()
         val action = FocusFragmentDirections.actionFocusFragmentToCategoryDetailFragment(category.id!!, category.name!!, type)
         findNavController().navigate(action)
         hideNavBar()
     }
 
-    private fun onBackPressed(){
-        val callback = object : OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.action_focusFragment_to_splashScreenFragment)
-                hideNavBar()
-            }
+    private fun materialMotion(){
+        exitTransition = MaterialFadeThrough().apply {
+            duration = 100L
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
+        reenterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
     }
 
     private fun hideNavBar() {
