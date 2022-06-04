@@ -37,6 +37,7 @@ class MeditateReminderFragment : Fragment(), TimePickerDialog.OnTimeSetListener 
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         meditateReminderViewModel.getData()
 
         meditateReminderViewModel.meditateReminderLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {

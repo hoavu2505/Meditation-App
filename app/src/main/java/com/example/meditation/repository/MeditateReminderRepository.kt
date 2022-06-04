@@ -18,15 +18,17 @@ class MeditateReminderRepository {
             .document("Meditate_reminder")
 
         docRef.get().addOnSuccessListener { document ->
-            if (document != null){
-                val meditateReminder : Reminder = Reminder(
-                    document.data!!["hour"] as Long,
-                    document.data!!["minute"] as Long,
-                    document.data!!["state"] as Boolean
-                )
-
-                meditateReminderLiveData.postValue(meditateReminder)
+            document?.let{
+                if (it.data != null){
+                    val meditateReminder : Reminder = Reminder(
+                        it.data!!["hour"] as Long,
+                        it.data!!["minute"] as Long,
+                        it.data!!["state"] as Boolean
+                    )
+                    meditateReminderLiveData.postValue(meditateReminder)
+                }
             }
+            Log.d("documentReminder", "$document")
         }
     }
 
