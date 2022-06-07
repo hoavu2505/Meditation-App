@@ -12,12 +12,24 @@ import androidx.navigation.fragment.navArgs
 import com.example.meditation.R
 import com.example.meditation.databinding.FragmentPlayContentLightBinding
 import com.example.meditation.model.Content
+import com.google.android.material.transition.MaterialFadeThrough
 
 class PlayContentLightFragment : Fragment() {
 
     private lateinit var mediaPlayer : MediaPlayer
     private lateinit var binding: FragmentPlayContentLightBinding
     private val args : PlayContentLightFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
+        returnTransition = MaterialFadeThrough().apply {
+            duration = 100L
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

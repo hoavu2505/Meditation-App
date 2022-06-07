@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -23,6 +24,8 @@ import com.google.android.gms.common.api.ApiException
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -38,6 +41,14 @@ class SignInFragment : Fragment(), LifecycleOwner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
+
+        returnTransition = MaterialElevationScale(true).apply {
+            duration = 50L
+        }
 
         FacebookSdk.sdkInitialize(requireContext());
 
@@ -60,6 +71,7 @@ class SignInFragment : Fragment(), LifecycleOwner {
         firebaseAuthViewModel.userMutableLiveData.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 Toast.makeText(context, "Successful", Toast.LENGTH_SHORT).show()
+                materialMotion()
                 findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
             }
         })
@@ -83,7 +95,10 @@ class SignInFragment : Fragment(), LifecycleOwner {
             binding.edtPassword.clearFocus()
         }
 
-        binding.tvForgotPassword.setOnClickListener { findNavController().navigate(R.id.action_signInFragment_to_forgotPasswordFragment) }
+        binding.tvForgotPassword.setOnClickListener {
+            materialMotion()
+            findNavController().navigate(R.id.action_signInFragment_to_forgotPasswordFragment)
+        }
 
         binding.textViewLogin.setOnClickListener { findNavController().navigate(R.id.action_signInFragment_to_signUpFragment) }
 
@@ -103,6 +118,12 @@ class SignInFragment : Fragment(), LifecycleOwner {
         binding.btnGoogle.setOnClickListener { signInWithGoogle() }
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     private fun initFacebookLogin() {
@@ -217,5 +238,15 @@ class SignInFragment : Fragment(), LifecycleOwner {
 
     private fun isEmailValid(email : CharSequence) : Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun materialMotion(){
+        exitTransition = MaterialFadeThrough().apply {
+            duration = 100L
+        }
+
+        reenterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
     }
 }

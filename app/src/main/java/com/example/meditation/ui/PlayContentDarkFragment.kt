@@ -13,12 +13,24 @@ import com.example.meditation.R
 import com.example.meditation.databinding.FragmentPlayContentDarkBinding
 import com.example.meditation.model.Content
 import com.example.meditation.theme.Theme
+import com.google.android.material.transition.MaterialFadeThrough
 
 class PlayContentDarkFragment : Fragment() {
 
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var binding: FragmentPlayContentDarkBinding
     private val args : PlayContentDarkFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
+        returnTransition = MaterialFadeThrough().apply {
+            duration = 100L
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

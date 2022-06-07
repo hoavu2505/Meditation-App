@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:background="@color/dark_background"
     app:layoutDescription="@xml/fragment_sleep_scene"
-    tools:context=".ui.SleepFragment">
+    tools:context=".ui.SleepFragment"
+    android:id="@+id/fragment_sleep"
+    android:visibility="invisible">
 
     <ImageView
         android:id="@+id/img_background"

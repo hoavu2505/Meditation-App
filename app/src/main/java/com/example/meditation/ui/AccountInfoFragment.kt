@@ -11,11 +11,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.meditation.R
 import com.example.meditation.constant.Constant
 import com.example.meditation.databinding.FragmentAccountInfoBinding
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
@@ -34,6 +37,18 @@ class AccountInfoFragment : Fragment() {
     private lateinit var storage : FirebaseStorage
     private lateinit var storageRef : StorageReference
     private lateinit var docRef : DocumentReference
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
+
+        returnTransition = MaterialElevationScale(true).apply {
+            duration = 50L
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,13 +73,22 @@ class AccountInfoFragment : Fragment() {
         binding = FragmentAccountInfoBinding.inflate(layoutInflater, container, false)
         val view = binding.root
 
-        binding.imgSetting.setOnClickListener { findNavController().navigate(R.id.action_accountInfoFragment_to_settingAccountFragment) }
+        binding.imgSetting.setOnClickListener {
+            findNavController().navigate(R.id.action_accountInfoFragment_to_settingAccountFragment)
+            materialMotion()
+        }
 
         binding.circleAvatar.setOnClickListener { pickImage() }
 
-        binding.imgClose.setOnClickListener { findNavController().navigate(R.id.action_accountInfoFragment_to_homeFragment) }
+        binding.imgClose.setOnClickListener { findNavController().popBackStack() }
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     private fun pickImage() {
@@ -142,6 +166,16 @@ class AccountInfoFragment : Fragment() {
             .addOnFailureListener { exception ->
                 Log.d("TAG", "get failed with", exception)
             }
+    }
+
+    private fun materialMotion(){
+        exitTransition = MaterialFadeThrough().apply {
+            duration = 100L
+        }
+
+        reenterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
     }
 
 }

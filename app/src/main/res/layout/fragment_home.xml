@@ -5,305 +5,324 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
-    tools:context=".ui.HomeFragment">
+    tools:context=".ui.HomeFragment"
+    android:visibility="invisible">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circle_avatar"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="57dp"
-            android:layout_marginStart="32dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ly_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/ic_bell"
-            android:layout_marginTop="65dp"
-            android:layout_marginEnd="34dp"/>
-
-        <TextView
-            android:id="@+id/tv_Hello"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/circle_avatar"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="23dp"
-            android:layout_marginStart="32dp"
-            android:textSize="25sp"
-            android:fontFamily="@font/regular"
-            android:textColor="@color/light_purple"/>
-
-        <TextView
-            android:id="@+id/tv_account_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_Hello"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="32dp"
-            android:textSize="30sp"
-            android:fontFamily="@font/bold"
-            android:textColor="@color/main_background"/>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_home1"
-            android:layout_width="160dp"
-            android:layout_height="190dp"
-            android:layout_marginTop="34dp"
-            android:layout_marginStart="30dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_account_name"
-            app:cardBackgroundColor="@color/home_1"
-            app:cardElevation="0dp"
-            app:cardCornerRadius="10dp">
-
-            <ImageView
-                android:id="@+id/img_home1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"/>
-
-            <TextView
-                android:id="@+id/tv_name1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cơ bản"
-                android:textSize="18sp"
-                android:fontFamily="@font/bold"
-                android:textColor="@color/light_yellow"
-                android:layout_marginTop="35dp"
-                android:layout_marginStart="15dp"/>
-
-            <TextView
-                android:id="@+id/tv_type1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="KHOÁ HỌC"
-                android:textSize="11sp"
-                android:fontFamily="@font/semi_bold"
-                android:textColor="@color/light_yellow_2"
-                android:layout_marginTop="65dp"
-                android:layout_marginStart="15dp" />
-
-            <TextView
-                android:id="@+id/tv_duration1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="3-10 PHÚT"
-                android:textSize="11sp"
-                android:fontFamily="@font/semi_bold"
-                android:textColor="@color/light_yellow_2"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_start_1"
-                android:layout_width="70dp"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circle_avatar"
+                android:layout_width="45dp"
                 android:layout_height="45dp"
-                app:cornerRadius="25dp"
-                android:backgroundTint="@color/gray_start_button"
-                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                android:padding="0dp"
-                android:text="START"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:fontFamily="@font/bold"
-                android:layout_gravity="bottom|right"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="5dp"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="57dp"
+                android:layout_marginStart="32dp" />
 
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_home2"
-            android:layout_width="160dp"
-            android:layout_height="190dp"
-            android:layout_marginTop="34dp"
-            android:layout_marginEnd="30dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_account_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:cardBackgroundColor="@color/home_2"
-            app:cardElevation="0dp"
-            app:cardCornerRadius="10dp">
-
-            <ImageView
-                android:id="@+id/img_home2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
+<!--            <ImageView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                android:src="@drawable/ic_bell"-->
+<!--                android:layout_marginTop="65dp"-->
+<!--                android:layout_marginEnd="34dp"/>-->
 
             <TextView
-                android:id="@+id/tv_name2"
+                android:id="@+id/tv_Hello"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thư giãn"
-                android:textSize="18sp"
-                android:fontFamily="@font/bold"
-                android:textColor="@color/white"
-                android:layout_marginTop="35dp"
-                android:layout_marginStart="15dp"/>
+                app:layout_constraintTop_toBottomOf="@id/circle_avatar"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="23dp"
+                android:layout_marginStart="32dp"
+                android:textSize="25sp"
+                android:fontFamily="@font/regular"
+                android:textColor="@color/light_purple"/>
 
             <TextView
-                android:id="@+id/tv_type2"
+                android:id="@+id/tv_account_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ÂM NHẠC"
-                android:textSize="11sp"
-                android:fontFamily="@font/semi_bold"
-                android:textColor="@color/white"
-                android:layout_marginTop="90dp"
-                android:layout_marginStart="15dp"/>
-
-            <TextView
-                android:id="@+id/tv_duration2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="3-10 PHÚT"
-                android:textSize="11sp"
-                android:fontFamily="@font/semi_bold"
-                android:textColor="@color/white"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="15dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_start_2"
-                android:layout_width="70dp"
-                android:layout_height="45dp"
-                app:cornerRadius="25dp"
-                android:backgroundTint="@color/light_black"
-                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                android:padding="0dp"
-                android:text="START"
-                android:textColor="@color/white"
-                android:textSize="12sp"
+                app:layout_constraintTop_toBottomOf="@id/tv_Hello"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="32dp"
+                android:textSize="30sp"
                 android:fontFamily="@font/bold"
-                android:layout_gravity="bottom|right"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="5dp"/>
+                android:textColor="@color/main_background"/>
 
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/tv_daily_exercise"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/card_home1"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="35dp"
-            android:layout_marginStart="32dp"
-            android:text="Bài tập hàng ngày"
-            android:textSize="22sp"
-            android:textColor="@color/main_background"
-            android:fontFamily="@font/bold"/>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_daily"
-            android:layout_width="@dimen/_275sdp"
-            android:layout_height="100dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_daily_exercise"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/light_black">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_home1"
+                android:layout_width="160dp"
+                android:layout_height="190dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginStart="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_account_name"
+                app:cardBackgroundColor="@color/home_1"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="10dp">
 
                 <ImageView
-                    android:id="@+id/img_daily"
+                    android:id="@+id/img_home1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"/>
 
                 <TextView
-                    android:id="@+id/tv_name_daily"
+                    android:id="@+id/tv_name1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginStart="30dp"
                     android:textSize="18sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/bold"/>
+                    android:fontFamily="@font/bold"
+                    android:textColor="@color/light_yellow"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="15dp"/>
 
                 <TextView
-                    android:id="@+id/tv_mode_daily"
+                    android:id="@+id/tv_type1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_name_daily"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginStart="30dp"
-                    android:text="MODE"
                     android:textSize="11sp"
                     android:fontFamily="@font/semi_bold"
-                    android:textColor="@color/gray_start_button"/>
+                    android:textColor="@color/light_yellow_2"
+                    android:layout_marginTop="65dp"
+                    android:layout_marginStart="15dp" />
+
+                <TextView
+                    android:id="@+id/tv_duration1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/semi_bold"
+                    android:textColor="@color/light_yellow_2"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="15dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_start_1"
+                    android:layout_width="70dp"
+                    android:layout_height="45dp"
+                    app:cornerRadius="25dp"
+                    android:backgroundTint="@color/gray_start_button"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:padding="0dp"
+                    android:text="START"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/bold"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_home2"
+                android:layout_width="160dp"
+                android:layout_height="190dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginEnd="30dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_account_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:cardBackgroundColor="@color/home_2"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="10dp">
 
                 <ImageView
-                    android:id="@+id/circle_img"
-                    android:layout_width="3dp"
-                    android:layout_height="3dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_name_daily"
-                    app:layout_constraintStart_toEndOf="@id/tv_mode_daily"
-                    android:src="@drawable/circle_fill_light"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginStart="5dp"/>
+                    android:id="@+id/img_home2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
 
                 <TextView
-                    android:id="@+id/tv_duration_daily"
+                    android:id="@+id/tv_name2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_name_daily"
-                    app:layout_constraintStart_toEndOf="@id/circle_img"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginStart="5dp"
-                    android:text="10 MIN"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/bold"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="15dp"/>
+
+                <TextView
+                    android:id="@+id/tv_type2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:textSize="11sp"
                     android:fontFamily="@font/semi_bold"
-                    android:textColor="@color/gray_start_button"/>
+                    android:textColor="@color/white"
+                    android:layout_marginTop="90dp"
+                    android:layout_marginStart="15dp"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tv_duration2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/semi_bold"
+                    android:textColor="@color/white"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="15dp"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_start_2"
+                    android:layout_width="70dp"
+                    android:layout_height="45dp"
+                    app:cornerRadius="25dp"
+                    android:backgroundTint="@color/light_black"
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:padding="0dp"
+                    android:text="START"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/bold"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_daily_exercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/card_home1"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="35dp"
+                android:layout_marginStart="32dp"
+                android:text="Bài tập hàng ngày"
+                android:textSize="22sp"
+                android:textColor="@color/main_background"
+                android:fontFamily="@font/bold"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_daily"
+                android:layout_width="@dimen/_275sdp"
+                android:layout_height="100dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_daily_exercise"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/light_black">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/img_daily"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"/>
+
+                    <TextView
+                        android:id="@+id/tv_name_daily"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginStart="30dp"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/bold"/>
+
+                    <TextView
+                        android:id="@+id/tv_mode_daily"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/tv_name_daily"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginStart="30dp"
+                        android:textSize="11sp"
+                        android:fontFamily="@font/semi_bold"
+                        android:textColor="@color/gray_start_button"/>
+
+                    <ImageView
+                        android:id="@+id/circle_img"
+                        android:layout_width="3dp"
+                        android:layout_height="3dp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_name_daily"
+                        app:layout_constraintStart_toEndOf="@id/tv_mode_daily"
+                        android:src="@drawable/circle_fill_light"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginStart="5dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_duration_daily"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/tv_name_daily"
+                        app:layout_constraintStart_toEndOf="@id/circle_img"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginStart="5dp"
+                        android:textSize="11sp"
+                        android:fontFamily="@font/semi_bold"
+                        android:textColor="@color/gray_start_button"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/tv_suggest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/card_daily"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="35dp"
-            android:layout_marginStart="32dp"
-            android:text="Gợi ý cho bạn"
-            android:textSize="22sp"
-            android:fontFamily="@font/bold"
-            android:textColor="@color/main_background"/>
+            <TextView
+                android:id="@+id/tv_suggest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/card_daily"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="35dp"
+                android:layout_marginStart="32dp"
+                android:text="Gợi ý cho bạn"
+                android:textSize="22sp"
+                android:fontFamily="@font/bold"
+                android:textColor="@color/main_background"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_suggest_home"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_suggest"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="18dp"
-            android:layout_marginStart="30dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_suggest_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tv_suggest"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="30dp"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/ly_not_connected"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="23dp"-->
+<!--            android:background="@color/red"-->
+<!--            android:visibility="gone">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:text="@string/not_connected"-->
+<!--                android:textSize="13sp"-->
+<!--                android:fontFamily="@font/bold"-->
+<!--                android:textColor="@color/white"/>-->
+
+<!--        </RelativeLayout>-->
+
+    </RelativeLayout>
+
 
 </ScrollView>

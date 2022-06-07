@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.meditation.databinding.FragmentEditNameBinding
 import com.example.meditation.viewmodel.UserViewModel
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
 
 class EditNameFragment : Fragment(), LifecycleOwner {
 
@@ -20,6 +22,15 @@ class EditNameFragment : Fragment(), LifecycleOwner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
+
+        returnTransition = MaterialElevationScale(true).apply {
+            duration = 50L
+        }
+
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
     }
 

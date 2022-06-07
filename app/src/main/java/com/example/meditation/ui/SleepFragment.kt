@@ -22,6 +22,7 @@ import com.example.meditation.databinding.FragmentSleepBinding
 import com.example.meditation.model.Content
 import com.example.meditation.theme.NavBar
 import com.example.meditation.theme.Theme
+import com.example.meditation.util.CheckingInternet
 import com.example.meditation.viewmodel.SleepContentViewModel
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialFadeThrough
@@ -35,6 +36,8 @@ class SleepFragment : Fragment(), SleepContentAdapter.OnItemClickListerner, Life
     private lateinit var contentRecyclerView : RecyclerView
     private lateinit var adapter: SleepContentAdapter
     private lateinit var contentViewModel: SleepContentViewModel
+
+    private val checkingInternet by lazy { CheckingInternet(requireActivity().application) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,9 +57,34 @@ class SleepFragment : Fragment(), SleepContentAdapter.OnItemClickListerner, Life
         binding = FragmentSleepBinding.inflate(layoutInflater,container,false)
         val view = binding.root
 
+        val notConnected = requireActivity().findViewById<RelativeLayout>(R.id.ly_not_connected)
+
+        checkingInternet.observe(viewLifecycleOwner, Observer {
+            if (it){
+                binding.root.visibility = View.VISIBLE
+                notConnected.visibility = View.GONE
+                updateUI()
+            }else{
+                binding.root.visibility = View.INVISIBLE
+                notConnected.visibility = View.VISIBLE
+            }
+        })
+
         Theme.changeColorStatusBar(requireActivity().window, R.color.dark_background, context)
         Theme.setStatusBarLightText(requireActivity().window ,true)
 
+
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+    }
+
+    private fun updateUI(){
         contentRecyclerView = binding.rcvSleepContent
         contentRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
 
@@ -83,16 +111,6 @@ class SleepFragment : Fragment(), SleepContentAdapter.OnItemClickListerner, Life
                 binding.cardHeading.setOnClickListener { headingContentClickItem(content) }
             }
         })
-
-//        onBackPressed()
-
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     override fun onClickItem(itemView: View, content: Content, position: Int) {

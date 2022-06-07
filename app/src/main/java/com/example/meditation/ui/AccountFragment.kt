@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.meditation.R
 import com.example.meditation.databinding.FragmentAccountBinding
 import com.example.meditation.viewmodel.UserViewModel
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
 
 class AccountFragment : Fragment(), LifecycleOwner {
 
@@ -20,6 +23,15 @@ class AccountFragment : Fragment(), LifecycleOwner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
+
+        returnTransition = MaterialElevationScale(true).apply {
+            duration = 50L
+        }
+
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
     }
 
@@ -44,9 +56,28 @@ class AccountFragment : Fragment(), LifecycleOwner {
 
         binding.imgBack.setOnClickListener { findNavController().popBackStack() }
 
-        binding.lyName.setOnClickListener { findNavController().navigate(R.id.action_accountFragment_to_editNameFragment) }
+        binding.lyName.setOnClickListener {
+            findNavController().navigate(R.id.action_accountFragment_to_editNameFragment)
+            materialMotion()
+        }
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+    }
+
+    private fun materialMotion(){
+        exitTransition = MaterialFadeThrough().apply {
+            duration = 100L
+        }
+
+        reenterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
     }
 
 }

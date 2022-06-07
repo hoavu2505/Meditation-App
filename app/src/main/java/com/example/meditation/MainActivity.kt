@@ -8,11 +8,14 @@ import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.meditation.databinding.ActivityMainBinding
 import com.example.meditation.theme.NavBar
+import com.example.meditation.util.CheckingInternet
 import java.security.MessageDigest
 
 

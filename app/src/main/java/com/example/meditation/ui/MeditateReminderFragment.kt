@@ -19,6 +19,8 @@ import com.example.meditation.databinding.FragmentMeditateReminderBinding
 import com.example.meditation.model.Reminder
 import com.example.meditation.util.*
 import com.example.meditation.viewmodel.MeditateReminderViewModel
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
 import java.util.*
 
 class MeditateReminderFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
@@ -30,6 +32,15 @@ class MeditateReminderFragment : Fragment(), TimePickerDialog.OnTimeSetListener 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
+
+        returnTransition = MaterialElevationScale(true).apply {
+            duration = 50L
+        }
+
         meditateReminderViewModel = ViewModelProvider(this)[MeditateReminderViewModel::class.java]
     }
 
@@ -125,6 +136,8 @@ class MeditateReminderFragment : Fragment(), TimePickerDialog.OnTimeSetListener 
         val importance = NotificationManager.IMPORTANCE_HIGH
         val channel = NotificationChannel(channelID, name, importance)
         channel.description = desc
+        channel.enableVibration(true)
+        channel.vibrationPattern = longArrayOf(500,500,500,500)
 
         val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)

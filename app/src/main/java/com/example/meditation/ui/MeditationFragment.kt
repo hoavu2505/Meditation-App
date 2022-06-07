@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.LifecycleOwner
@@ -25,6 +26,7 @@ import com.example.meditation.model.Category
 import com.example.meditation.model.Content
 import com.example.meditation.theme.NavBar
 import com.example.meditation.theme.Theme
+import com.example.meditation.util.CheckingInternet
 import com.example.meditation.viewmodel.MeditationCategoryViewModel
 import com.example.meditation.viewmodel.MeditationContentViewModel
 import com.google.android.material.transition.MaterialElevationScale
@@ -40,6 +42,8 @@ class MeditationFragment : Fragment(), CategoryAdapter.OnItemClickListener, Life
     private lateinit var adapter: CategoryAdapter
     private lateinit var meditationRecyclerViewModel: MeditationCategoryViewModel
     private lateinit var meditationContentViewModel: MeditationContentViewModel
+
+    private val checkingInternet by lazy { CheckingInternet(requireActivity().application) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +67,31 @@ class MeditationFragment : Fragment(), CategoryAdapter.OnItemClickListener, Life
         Theme.changeColorStatusBar(requireActivity().window, R.color.white, context)
         Theme.setStatusBarLightText(requireActivity().window ,false)
 
+        val notConnected = requireActivity().findViewById<RelativeLayout>(R.id.ly_not_connected)
+
+        checkingInternet.isConnected(requireActivity().application)
+
+        checkingInternet.observe(viewLifecycleOwner, Observer {
+            if (it){
+                binding.root.visibility = View.VISIBLE
+                notConnected.visibility = View.GONE
+                updateUI()
+            }else{
+                binding.root.visibility = View.INVISIBLE
+                notConnected.visibility = View.VISIBLE
+            }
+        })
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+    }
+
+    private fun updateUI(){
         categoryRecyclerView = binding.rcvCategory
 
         categoryRecyclerView.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
@@ -90,16 +119,6 @@ class MeditationFragment : Fragment(), CategoryAdapter.OnItemClickListener, Life
                 binding.cardHeading.setOnClickListener { headingContentClickItem(content) }
             }
         })
-
-//        onBackPressed()
-
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     private fun headingContentClickItem(content: Content) {

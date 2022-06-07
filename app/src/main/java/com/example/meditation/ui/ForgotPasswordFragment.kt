@@ -15,6 +15,8 @@ import com.example.meditation.R
 import com.example.meditation.databinding.FragmentForgotPasswordBinding
 import com.example.meditation.theme.Theme
 import com.example.meditation.viewmodel.FirebaseAuthViewModel
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
 import kotlinx.coroutines.*
 
 class ForgotPasswordFragment : Fragment(), LifecycleOwner {
@@ -24,6 +26,15 @@ class ForgotPasswordFragment : Fragment(), LifecycleOwner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
+
+        returnTransition = MaterialElevationScale(true).apply {
+            duration = 50L
+        }
+
         firebaseAuthViewModel = ViewModelProvider(this)[FirebaseAuthViewModel::class.java]
     }
 
@@ -49,6 +60,7 @@ class ForgotPasswordFragment : Fragment(), LifecycleOwner {
                 Toast.makeText(requireContext(), "Một email khôi phục mật khẩu đã được gửi tới địa chỉ email của bạn.", Toast.LENGTH_SHORT).show()
                 binding.btnContinue.text = getString(R.string.Continue)
                 binding.progressContinue.visibility = View.INVISIBLE
+                findNavController().popBackStack()
             }
         })
 

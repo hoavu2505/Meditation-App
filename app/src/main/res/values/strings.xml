@@ -11,6 +11,7 @@
     <string name="sign_in">Đăng nhập</string>
     <string name="Continue">Tiếp tục</string>
     <string name="sign_out">Đăng xuất</string>
+    <string name="not_connected">Không có kết nối</string>
     <string name="save">Lưu lại</string>
     <string name="cancel">Huỷ bỏ</string>
     <string name="play">Play</string>

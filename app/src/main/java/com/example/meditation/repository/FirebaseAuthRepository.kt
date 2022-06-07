@@ -23,7 +23,7 @@ import kotlinx.coroutines.withContext
 
 class FirebaseAuthRepository  {
 
-    var userMutableLiveData = MutableLiveData<FirebaseUser>()
+    var userMutableLiveData = MutableLiveData<FirebaseUser?>()
     var signOutMutableLiveData = MutableLiveData<Boolean>()
     var isEmailAlreadyExists = MutableLiveData<Boolean>()
     var isEmailSent = MutableLiveData<Boolean>()
@@ -37,6 +37,7 @@ class FirebaseAuthRepository  {
             userMutableLiveData.postValue(mAuth.currentUser)
             signOutMutableLiveData.postValue(false)
         }else{
+            userMutableLiveData.postValue(null)
             signOutMutableLiveData.postValue(true)
         }
     }
@@ -155,6 +156,7 @@ class FirebaseAuthRepository  {
     fun signOut(){
         mAuth.signOut()
         signOutMutableLiveData.postValue(true)
+        userMutableLiveData.postValue(null)
     }
 
     suspend fun sendPasswordResetEmail(email: String){

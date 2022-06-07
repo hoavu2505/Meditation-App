@@ -1,14 +1,15 @@
 package com.example.meditation.ui
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -23,14 +24,12 @@ import com.example.meditation.databinding.FragmentHomeBinding
 import com.example.meditation.model.Content
 import com.example.meditation.theme.NavBar
 import com.example.meditation.theme.Theme
+import com.example.meditation.util.CheckingInternet
 import com.example.meditation.viewmodel.FirebaseAuthViewModel
 import com.example.meditation.viewmodel.HomeContentViewModel
 import com.example.meditation.viewmodel.UserViewModel
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseAuth
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
@@ -38,20 +37,29 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment(), LifecycleOwner, HomeContentAdapter.OnItemClickListerner {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var contentRecyclerView: RecyclerView
-    private lateinit var contentArrayList: ArrayList<Content>
+    private lateinit var adapter: HomeContentAdapter
     private lateinit var firebaseAuthViewModel: FirebaseAuthViewModel
     private lateinit var userViewModel: UserViewModel
     private lateinit var homeContentViewModel: HomeContentViewModel
     private lateinit var db : FirebaseFirestore
 
+    private val checkingInternet by lazy { CheckingInternet(requireActivity().application) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
+
+        returnTransition = MaterialElevationScale(true).apply {
+            duration = 50L
+        }
+
         firebaseAuthViewModel = ViewModelProvider(this)[FirebaseAuthViewModel::class.java]
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         homeContentViewModel = ViewModelProvider(this)[HomeContentViewModel::class.java]
@@ -61,6 +69,8 @@ class HomeFragment : Fragment(), LifecycleOwner, HomeContentAdapter.OnItemClickL
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        showNavBar()
+
         homeContentViewModel.cardContent1CallData()
         homeContentViewModel.cardContent2CallData()
         homeContentViewModel.cardDailyContentCallData()
@@ -69,19 +79,52 @@ class HomeFragment : Fragment(), LifecycleOwner, HomeContentAdapter.OnItemClickL
         binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
         val view = binding.root
 
+        val notConnected = requireActivity().findViewById<RelativeLayout>(R.id.ly_not_connected)
+
+        checkingInternet.isConnected(requireActivity().application)
+
+        checkingInternet.observe(viewLifecycleOwner, Observer {
+            if(it){
+                binding.root.visibility = View.VISIBLE
+//                binding.lyNotConnected.visibility = View.GONE
+                notConnected.visibility = View.GONE
+                updateUI()
+            }
+            else{
+//                Toast.makeText(requireContext(), "Không có kết nối Internet.", Toast.LENGTH_SHORT).show()
+                binding.root.visibility = View.INVISIBLE
+//                binding.lyNotConnected.visibility = View.VISIBLE
+                notConnected.visibility = View.VISIBLE
+            }
+
+            Log.d("network: ", "$it")
+        })
+
+        Theme.changeColorStatusBar(requireActivity().window, R.color.white, context)
+        Theme.setStatusBarLightText(requireActivity().window ,false)
+
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+    }
+
+    private fun updateUI(){
         firebaseAuthViewModel.signOutMutableLiveData.observe(viewLifecycleOwner, Observer { logout ->
             if (logout){
                 findNavController().navigate(R.id.action_homeFragment_to_homeLoginFragment)
                 hideNavBar()
             } else{
                 firebaseAuthViewModel.userMutableLiveData.observe(viewLifecycleOwner, Observer {
-                    getDisplayName(it)
+                    getDisplayName(it!!)
                     userViewModel.getDataUser()
                 })
             }
         })
-
-        showNavBar()
 
         userViewModel.userMutableLiveData.observe(viewLifecycleOwner, Observer {
             if (it != null){
@@ -139,31 +182,26 @@ class HomeFragment : Fragment(), LifecycleOwner, HomeContentAdapter.OnItemClickL
             }
         })
 
+        db = FirebaseFirestore.getInstance()
+        compareTime()
+
+        contentRecyclerView = binding.rcvSuggestHome
+        contentRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL,false)
+
         homeContentViewModel.contentListLiveData.observe(viewLifecycleOwner, Observer { contentArrayList ->
             if (contentArrayList != null){
-                var adapter = HomeContentAdapter(contentArrayList, this)
+                adapter = HomeContentAdapter(contentArrayList, this)
                 contentRecyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
             }
         })
 
-        db = FirebaseFirestore.getInstance()
-        compareTime()
-
-        Theme.changeColorStatusBar(requireActivity().window, R.color.white, context)
-        Theme.setStatusBarLightText(requireActivity().window ,false)
-
-        contentRecyclerView = binding.rcvSuggestHome
-        contentRecyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL,false)
-
         binding.circleAvatar.setOnClickListener {
+            materialMotion()
             findNavController().navigate(R.id.action_homeFragment_to_accountInfoFragment)
             hideNavBar()
         }
 
-//        onBackPressed()
-
-        return view
     }
 
     private fun homeContentClickItem(content: Content) {
@@ -244,6 +282,7 @@ class HomeFragment : Fragment(), LifecycleOwner, HomeContentAdapter.OnItemClickL
             findNavController().navigate(action)
             hideNavBar()
         }else{
+            materialMotion()
             when(content.type){
                 "Sound" -> {
                     val action = HomeFragmentDirections.actionHomeFragmentToContentDetailLightFragment(content.id!!, content)
@@ -259,6 +298,16 @@ class HomeFragment : Fragment(), LifecycleOwner, HomeContentAdapter.OnItemClickL
                 }
             }
             hideNavBar()
+        }
+    }
+
+    private fun materialMotion(){
+        exitTransition = MaterialFadeThrough().apply {
+            duration = 100L
+        }
+
+        reenterTransition = MaterialFadeThrough().apply {
+            duration = 300L
         }
     }
 

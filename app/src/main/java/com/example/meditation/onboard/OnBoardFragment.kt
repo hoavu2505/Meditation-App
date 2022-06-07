@@ -72,9 +72,9 @@ class OnBoardFragment : Fragment() {
         }
 
         binding.btnGetStarted.setOnClickListener {
-            findNavController().navigate(R.id.action_onBoardFragment_to_homeFragment)
+            findNavController().navigate(R.id.action_onBoardFragment_to_homeLoginFragment)
             onBoardingFinished()
-            showNavBar()
+//            showNavBar()
         }
 
         return view

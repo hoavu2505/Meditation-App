@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -26,6 +27,8 @@ import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.transition.MaterialElevationScale
+import com.google.android.material.transition.MaterialFadeThrough
 
 class SignUpFragment : Fragment(), LifecycleOwner {
 
@@ -36,6 +39,14 @@ class SignUpFragment : Fragment(), LifecycleOwner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        enterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
+
+        returnTransition = MaterialElevationScale(true).apply {
+            duration = 50L
+        }
 
         FacebookSdk.sdkInitialize(requireContext());
 
@@ -57,6 +68,7 @@ class SignUpFragment : Fragment(), LifecycleOwner {
         firebaseAuthViewModel.userMutableLiveData.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 Toast.makeText(context, "Successful", Toast.LENGTH_SHORT).show()
+                materialMotion()
                 findNavController().navigate(R.id.action_signUpFragment_to_homeFragment)
             }
         })
@@ -97,6 +109,12 @@ class SignUpFragment : Fragment(), LifecycleOwner {
         binding.btnGoogle.setOnClickListener { signInWithGoogle() }
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     private fun initFacebookLogin() {
@@ -195,6 +213,16 @@ class SignUpFragment : Fragment(), LifecycleOwner {
 
     private fun isEmailValid(email : CharSequence) : Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun materialMotion(){
+        exitTransition = MaterialFadeThrough().apply {
+            duration = 100L
+        }
+
+        reenterTransition = MaterialFadeThrough().apply {
+            duration = 300L
+        }
     }
 
 }

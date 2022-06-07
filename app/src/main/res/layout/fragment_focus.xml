@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/fragment_focus_scene"
-    tools:context=".ui.FocusFragment">
+    tools:context=".ui.FocusFragment"
+    android:id="@+id/fragment_focus"
+    android:visibility="invisible">
 
     <ImageView
         android:id="@+id/img_background"
