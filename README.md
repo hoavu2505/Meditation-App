@@ -9,10 +9,10 @@ Chỉ cần vài phút mỗi ngày có thể mang lại cho ạn sự cân bằn
 
 # Features
 - Meditation
-> Các bài thiền có hướng dẫn.
-  Thực hành hằng ngày về một chủ đề.
-  Giúp hồi phục tinh thần nhanh chóng với bài tập "Breathe".
-  Một vài các lời khuyên từ chuyên gia làm thế nào để tốt cho sức khoẻ tinh thần.
+> - Các bài thiền có hướng dẫn.
+  - Thực hành hằng ngày về một chủ đề.
+  - Giúp hồi phục tinh thần nhanh chóng với bài tập "Breathe".
+  - Một vài các lời khuyên từ chuyên gia làm thế nào để tốt cho sức khoẻ tinh thần.
 
 - Sleep
 > Đi vào giấc ngủ ngon hơn với chương trình radio rain - hoặc những âm thanh thư giãn.
