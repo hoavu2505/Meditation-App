@@ -8,16 +8,16 @@ Một ứng dụng hướng dẫn thực hành giải toả tâm trí, căng th�
 Chỉ cần vài phút mỗi ngày có thể mang lại cho ạn sự cân bằng cho cuộc sống.
 
 # Features
-- Meditation
-> - Các bài thiền có hướng dẫn.
-  - Thực hành hằng ngày về một chủ đề.
-  - Giúp hồi phục tinh thần nhanh chóng với bài tập "Breathe".
-  - Một vài các lời khuyên từ chuyên gia làm thế nào để tốt cho sức khoẻ tinh thần.
+- **Meditation**
+> Các bài thiền có hướng dẫn.\n
+Thực hành hằng ngày về một chủ đề.\n
+Giúp hồi phục tinh thần nhanh chóng với bài tập "Breathe".\n
+Một vài các lời khuyên từ chuyên gia làm thế nào để tốt cho sức khoẻ tinh thần.
 
-- Sleep
-> Đi vào giấc ngủ ngon hơn với chương trình radio rain - hoặc những âm thanh thư giãn.
-  Âm thanh dịu êm dành cho giấc ngủ với các bản ghi âm từ thiên nhiên xung quanh.
+- **Sleep**
+> Đi vào giấc ngủ ngon hơn với chương trình radio rain - hoặc những âm thanh thư giãn.\n
+Âm thanh dịu êm dành cho giấc ngủ với các bản ghi âm từ thiên nhiên xung quanh.
 
-- Focus
-> Giúp bạn có thêm động lực cho một ngày làm việc, học tập.
-  Các beat thư giãn giúp bạn lấy lại năng lượng trong giờ nghỉ ngơi.
+- **Focus**
+> Giúp bạn có thêm động lực cho một ngày làm việc, học tập.\n
+Các beat thư giãn giúp bạn lấy lại năng lượng trong giờ nghỉ ngơi.
