@@ -26,3 +26,6 @@ Chỉ cần vài phút mỗi ngày có thể mang lại cho ạn sự cân bằn
 > Giúp bạn có thêm động lực cho một ngày làm việc, học tập.
 
 > Các beat thư giãn giúp bạn lấy lại năng lượng trong giờ nghỉ ngơi.
+
+# Contract
+**email:** vnhoa2505@gmail.com
