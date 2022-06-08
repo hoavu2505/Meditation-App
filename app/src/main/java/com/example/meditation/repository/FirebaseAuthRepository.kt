@@ -89,6 +89,7 @@ class FirebaseAuthRepository  {
                                     userMutableLiveData.postValue(mAuth.currentUser)
                                 }else{
                                     Log.e("TAG", "loginUserWithEmail:failure", task.exception)
+                                    isEmailAlreadyExists.postValue(false)
                                 }
                             }
                     }
@@ -112,7 +113,7 @@ class FirebaseAuthRepository  {
                     val mUser = User(user.uid,
                         user.displayName.toString(),
                         user.email.toString(),
-                        defaultAvatar,
+                        user.photoUrl.toString(),
                         "google")
 
                     FirebaseFirestore.getInstance().collection("User")
@@ -139,7 +140,7 @@ class FirebaseAuthRepository  {
                     val mUser = User(user.uid,
                         user.displayName.toString(),
                         user.email.toString(),
-                        defaultAvatar,
+                        user.photoUrl.toString(),
                         "facebook")
 
                     FirebaseFirestore.getInstance().collection("User")

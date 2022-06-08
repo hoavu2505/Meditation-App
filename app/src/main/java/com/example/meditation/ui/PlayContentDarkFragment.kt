@@ -113,5 +113,10 @@ class PlayContentDarkFragment : Fragment() {
         binding.tvContentName.text = content.name
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mediaPlayer.stop()
+        mediaPlayer.release()
+    }
 
 }

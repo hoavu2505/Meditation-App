@@ -18,6 +18,10 @@ import com.example.meditation.theme.NavBar
 import com.example.meditation.theme.Theme
 import com.example.meditation.viewmodel.FirebaseAuthViewModel
 import com.google.android.material.transition.MaterialFadeThrough
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SplashFragment : Fragment(), LifecycleOwner {
 
@@ -42,27 +46,24 @@ class SplashFragment : Fragment(), LifecycleOwner {
         Theme.changeColorStatusBar(requireActivity().window, R.color.white, context)
         Theme.setStatusBarLightText(requireActivity().window ,false)
 
-        // Inflate the layout for this fragment
-        Handler().postDelayed({
+        GlobalScope.launch(Dispatchers.Main) {
+            delay(3000)
             if (onBoardingFinished()){
                 firebaseAuthViewModel.signOutMutableLiveData.observe(viewLifecycleOwner, Observer {
                     if (it) {
                         materialMotion()
                         findNavController().navigate(R.id.action_splashScreenFragment_to_homeLoginFragment)
-//                        Log.d("signOut: ", "$it")
                     }
                     else {
                         materialMotion()
                         findNavController().navigate(R.id.action_splashScreenFragment_to_homeFragment)
-//                        Log.d("signOut: ", "$it")
                     }
                 })
 
             } else{
                 findNavController().navigate(R.id.action_splashScreenFragment_to_onBoardFragment)
             }
-        }, 3000)
-
+        }
         return inflater.inflate(R.layout.fragment_splash_screen, container, false)
     }
 

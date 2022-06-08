@@ -2,6 +2,7 @@ package com.example.meditation.ui
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -11,12 +12,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.meditation.R
 import com.example.meditation.constant.Constant
 import com.example.meditation.databinding.FragmentAccountInfoBinding
+import com.example.meditation.viewmodel.UserViewModel
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.firebase.auth.FirebaseAuth
@@ -25,18 +35,18 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.io.ByteArrayOutputStream
+import java.util.jar.Manifest
 
-class AccountInfoFragment : Fragment() {
+class AccountInfoFragment : Fragment(), LifecycleOwner {
     private lateinit var binding : FragmentAccountInfoBinding
     private lateinit var mAuth : FirebaseAuth
     private lateinit var storage : FirebaseStorage
     private lateinit var storageRef : StorageReference
     private lateinit var docRef : DocumentReference
+
+    private lateinit var userViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +58,8 @@ class AccountInfoFragment : Fragment() {
         returnTransition = MaterialElevationScale(true).apply {
             duration = 50L
         }
+
+        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -55,20 +67,34 @@ class AccountInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         mAuth = FirebaseAuth.getInstance()
-        val currentUser = mAuth.currentUser
+
+        userViewModel.getDataUser()
 
         storage = FirebaseStorage.getInstance()
         storageRef = storage.getReferenceFromUrl("gs://meditation-app-ec6d8.appspot.com/")
         docRef = FirebaseFirestore.getInstance().collection("User").document(mAuth.uid!!)
 
-        currentUser!!.let {
-            getDisplayName(currentUser)
-        }
+        userViewModel.userMutableLiveData.observe(viewLifecycleOwner, Observer { user ->
+            if (user != null){
+                GlobalScope.launch(Dispatchers.Main) {
+                    Glide.with(requireContext()).load(user.avatar)
+                        .placeholder(R.drawable.ic_placeholder)
+                        .into(binding.circleAvatar)
 
-        GlobalScope.launch(Dispatchers.Main) {
-            downloadImg(storageRef, requireContext())
-        }
+                    binding.tvName.text = user.name
+                }
 
+                when(user.social_network){
+                    "none" -> binding.circleAvatar.setOnClickListener { onClickRequestPermission() }
+                    else -> binding.circleAvatar.setOnClickListener {
+                        Toast.makeText(requireContext(),
+                            "Tài khoản đăng ký bằng ${user.social_network} không thể thay đổi avatar ở đây.",
+                            Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            }
+        })
 
         binding = FragmentAccountInfoBinding.inflate(layoutInflater, container, false)
         val view = binding.root
@@ -77,8 +103,6 @@ class AccountInfoFragment : Fragment() {
             findNavController().navigate(R.id.action_accountInfoFragment_to_settingAccountFragment)
             materialMotion()
         }
-
-        binding.circleAvatar.setOnClickListener { pickImage() }
 
         binding.imgClose.setOnClickListener { findNavController().popBackStack() }
 
@@ -89,6 +113,44 @@ class AccountInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
+    }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ){  isGranted: Boolean ->
+            if (isGranted) {
+                Log.i("Permission: ", "Granted")
+            }   else {
+                Toast.makeText(requireContext(), getString(R.string.permission_required), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    private fun onClickRequestPermission(){
+        when {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                pickImage()
+            }
+
+            ActivityCompat.shouldShowRequestPermissionRationale(
+                requireActivity(),
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) -> {
+                Toast.makeText(requireContext(), getString(R.string.permission_required), Toast.LENGTH_SHORT).show()
+                requestPermissionLauncher.launch(
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            }
+
+            else ->{
+                requestPermissionLauncher.launch(
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+            }
+        }
     }
 
     private fun pickImage() {
@@ -113,59 +175,12 @@ class AccountInfoFragment : Fragment() {
 
             pathRef.putBytes(imageData)
             pathRef.downloadUrl.addOnSuccessListener {
-//                Glide.with(this).load(it).into(binding.circleAvatar)
-                binding.circleAvatar.setImageBitmap(bitmap)
                 docRef.update("avatar", it)
             }.addOnFailureListener {
                 Log.d("error", it.toString())
             }
 
         }
-    }
-
-    private suspend fun downloadImg(storageReference: StorageReference, context: Context){
-        withContext(Dispatchers.IO){
-            storageReference.child("User/${mAuth.uid}/avatar.jpg").downloadUrl.addOnSuccessListener {
-
-                GlobalScope.launch(Dispatchers.Main) {
-                    Glide.with(context).load(it)
-                    .placeholder(R.drawable.ic_placeholder)
-                    .into(binding.circleAvatar)
-                }
-
-            }.addOnFailureListener { e ->
-                Log.d("error download image", e.toString())
-
-                storageReference.child("default_avatar.png").downloadUrl.addOnSuccessListener {
-                    GlobalScope.launch(Dispatchers.Main) {
-                        Glide.with(context).load(it)
-                            .placeholder(R.drawable.ic_placeholder)
-                            .into(binding.circleAvatar)
-                    }
-                }.addOnFailureListener {
-                    Log.d("error download default image", it.toString())
-                }
-
-            }
-        }
-    }
-
-
-    private fun getDisplayName(currentUser : FirebaseUser){
-        val db : FirebaseFirestore = FirebaseFirestore.getInstance()
-        val docRef = db.collection("User")
-            .document(currentUser.uid)
-        docRef.get().addOnSuccessListener { document ->
-            if (document != null){
-                Log.d("TAG", "DocumentSnapshot data: ${document.data!!["name"]}")
-                binding.tvName.text = document.data!!["name"].toString()
-            }else{
-                Log.d("TAG", "No such document")
-            }
-        }
-            .addOnFailureListener { exception ->
-                Log.d("TAG", "get failed with", exception)
-            }
     }
 
     private fun materialMotion(){

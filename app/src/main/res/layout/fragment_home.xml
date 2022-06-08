@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:scrollbars="none"
     tools:context=".ui.HomeFragment"
-    android:visibility="invisible">
+    android:visibility="visible">
 
     <RelativeLayout
         android:layout_width="match_parent"
