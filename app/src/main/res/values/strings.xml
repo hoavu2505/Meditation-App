@@ -70,5 +70,6 @@
     <string name="fb_login_protocol_scheme">fb519130129923795</string>
     <string name="facebook_client_token">e0b55ad620025c0dd85b481871a55079</string>
 
+    <string name="permission_required">Ứng dụng cần quyền truy cập bộ nhớ để thực hiện thao tác.</string>
 
 </resources>

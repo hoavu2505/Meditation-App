@@ -7,6 +7,7 @@ import com.example.meditation.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.MetadataChanges
 
 class UserRepository {
     var userMutableLiveData = MutableLiveData<User?>()
@@ -14,18 +15,25 @@ class UserRepository {
     private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     fun getDataUser() {
-        val docRef = db.collection("User")
-            .document(mAuth.currentUser!!.uid)
-        docRef.get().addOnSuccessListener { document ->
-            if (document != null) {
-                val user: User = User(
-                    document.data!!["id"] as String,
-                    document.data!!["name"] as String,
-                    document.data!!["email"] as String,
-                    document.data!!["avatar"] as String,
-                    document.data!!["social_network"] as String
-                )
-                userMutableLiveData.postValue(user)
+        mAuth.currentUser?.let {
+            val docRef = db.collection("User")
+                .document(mAuth.currentUser!!.uid)
+
+            docRef.addSnapshotListener() { value, error ->
+                if (error != null){
+                    return@addSnapshotListener
+                }
+
+                if (value != null && value.exists()){
+                    val user: User = User(
+                        value.data!!["id"] as String,
+                        value.data!!["name"] as String,
+                        value.data!!["email"] as String,
+                        value.data!!["avatar"] as String,
+                        value.data!!["social_network"] as String
+                    )
+                    userMutableLiveData.postValue(user)
+                }
             }
         }
     }

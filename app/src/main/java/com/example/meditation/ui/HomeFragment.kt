@@ -120,8 +120,9 @@ class HomeFragment : Fragment(), LifecycleOwner, HomeContentAdapter.OnItemClickL
                 hideNavBar()
             } else{
                 firebaseAuthViewModel.userMutableLiveData.observe(viewLifecycleOwner, Observer {
-                    getDisplayName(it!!)
-                    userViewModel.getDataUser()
+                    if (it != null){
+                        userViewModel.getDataUser()
+                    }
                 })
             }
         })
@@ -131,6 +132,10 @@ class HomeFragment : Fragment(), LifecycleOwner, HomeContentAdapter.OnItemClickL
                 Glide.with(requireContext()).load(it.avatar)
                     .placeholder(R.drawable.ic_placeholder)
                     .into(binding.circleAvatar)
+
+                binding.tvAccountName.text = it.name
+
+                Log.d("avatar", "${it.avatar}")
             }
         })
 
@@ -205,8 +210,17 @@ class HomeFragment : Fragment(), LifecycleOwner, HomeContentAdapter.OnItemClickL
     }
 
     private fun homeContentClickItem(content: Content) {
-        val action = HomeFragmentDirections.actionHomeFragmentToContentDetailLightFragment(content.id!!, content)
-        findNavController().navigate(action)
+        when (content.type){
+            "Sound" ->{
+                val action = HomeFragmentDirections.actionHomeFragmentToContentDetailLightFragment(content.id!!, content)
+                findNavController().navigate(action)
+            }
+            "Course" ->{
+                val action = HomeFragmentDirections.actionHomeFragmentToCourseDetailFragment(content)
+                findNavController().navigate(action)
+            }
+        }
+
         hideNavBar()
     }
 
@@ -217,23 +231,6 @@ class HomeFragment : Fragment(), LifecycleOwner, HomeContentAdapter.OnItemClickL
 
     private fun showNavBar() {
         NavBar.showNavBar(requireActivity().findViewById(R.id.bottom_navigation))
-    }
-
-    private fun getDisplayName(currentUser : FirebaseUser){
-        val db : FirebaseFirestore = FirebaseFirestore.getInstance()
-        val docRef = db.collection("User")
-            .document(currentUser.uid)
-        docRef.get().addOnSuccessListener { document ->
-            if (document != null){
-                Log.d("TAG", "DocumentSnapshot data: ${document.data!!["name"]}")
-                binding.tvAccountName.text = document.data!!["name"].toString()
-            }else{
-                Log.d("TAG", "No such document")
-            }
-        }
-            .addOnFailureListener { exception ->
-                Log.d("TAG", "get failed with", exception)
-            }
     }
 
     @SuppressLint("SimpleDateFormat")
