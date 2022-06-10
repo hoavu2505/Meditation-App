@@ -253,7 +253,8 @@
             android:id="@+id/action_settingAccountFragment_to_homeLoginFragment"
             app:destination="@id/homeLoginFragment"
             app:popUpTo="@id/homeLoginFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true" />
         <action
             android:id="@+id/action_settingAccountFragment_to_accountFragment"
             app:destination="@id/accountFragment" />

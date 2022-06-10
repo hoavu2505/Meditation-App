@@ -37,6 +37,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.*
 import java.io.ByteArrayOutputStream
+import java.util.*
 import java.util.jar.Manifest
 
 class AccountInfoFragment : Fragment(), LifecycleOwner {
@@ -68,21 +69,28 @@ class AccountInfoFragment : Fragment(), LifecycleOwner {
     ): View? {
         mAuth = FirebaseAuth.getInstance()
 
-        userViewModel.getDataUser()
+//        userViewModel.getDataUser()
 
         storage = FirebaseStorage.getInstance()
         storageRef = storage.getReferenceFromUrl("gs://meditation-app-ec6d8.appspot.com/")
-        docRef = FirebaseFirestore.getInstance().collection("User").document(mAuth.uid!!)
+//        docRef = FirebaseFirestore.getInstance().collection("User").document(mAuth.uid!!)
 
         userViewModel.userMutableLiveData.observe(viewLifecycleOwner, Observer { user ->
             if (user != null){
                 GlobalScope.launch(Dispatchers.Main) {
+                    Log.d("avatarInfo", "${user.avatar}")
+
+                    binding.lyProgress.visibility = View.INVISIBLE
+
                     Glide.with(requireContext()).load(user.avatar)
                         .placeholder(R.drawable.ic_placeholder)
                         .into(binding.circleAvatar)
 
                     binding.tvName.text = user.name
+
                 }
+
+                docRef = FirebaseFirestore.getInstance().collection("User").document(user.id)
 
                 when(user.social_network){
                     "none" -> binding.circleAvatar.setOnClickListener { onClickRequestPermission() }
@@ -163,21 +171,45 @@ class AccountInfoFragment : Fragment(), LifecycleOwner {
 
         if (requestCode == Constant.KeySwitch.REQUEST_IMAGE_CODE && data != null){
 
-            val uri : Uri = data.data!!
-            val bitmap : Bitmap = MediaStore
-                .Images.Media.getBitmap(requireActivity().contentResolver, uri)
-            val byteArrayOutputStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
-            val imageData = byteArrayOutputStream.toByteArray()
+            GlobalScope.launch (Dispatchers.IO) {
+                val uri : Uri = data.data!!
+                val bitmap : Bitmap = MediaStore
+                    .Images.Media.getBitmap(requireActivity().contentResolver, uri)
+                val byteArrayOutputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 60, byteArrayOutputStream)
+                val imageData = byteArrayOutputStream.toByteArray()
 
-            val filePath = "User/${mAuth.uid}/avatar.jpg"
-            val pathRef = storageRef.child(filePath)
+                val id = UUID.randomUUID().toString()
 
-            pathRef.putBytes(imageData)
-            pathRef.downloadUrl.addOnSuccessListener {
-                docRef.update("avatar", it)
-            }.addOnFailureListener {
-                Log.d("error", it.toString())
+                val filePath = "User/${mAuth.uid}/avatar-$id.jpg"
+                val pathRef = storageRef.child(filePath)
+
+
+//                val taskUpload = launch {
+//                    pathRef.putBytes(imageData)
+//                    delay(3000)
+//                }
+//                taskUpload.join()
+
+                val taskUpload = async {
+                    pathRef.putBytes(imageData)
+                    Log.d("taskUpload1", "Done")
+                    delay(3000)
+                }
+
+                withContext(Dispatchers.Main){
+                    binding.lyProgress.visibility = View.VISIBLE
+                }
+                taskUpload.await()
+
+                Log.d("taskUpload2", "Done")
+
+                pathRef.downloadUrl.addOnSuccessListener {
+                    docRef.update("avatar", it)
+                }.addOnFailureListener {
+                    Log.d("error", it.toString())
+                }
+
             }
 
         }
