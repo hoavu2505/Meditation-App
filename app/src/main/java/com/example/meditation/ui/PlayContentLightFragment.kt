@@ -3,22 +3,38 @@ package com.example.meditation.ui
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.meditation.R
 import com.example.meditation.databinding.FragmentPlayContentLightBinding
 import com.example.meditation.model.Content
+import com.example.meditation.model.Statistic
+import com.example.meditation.viewmodel.StatisticViewModel
 import com.google.android.material.transition.MaterialFadeThrough
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-class PlayContentLightFragment : Fragment() {
+class PlayContentLightFragment : Fragment(), LifecycleOwner {
 
-    private lateinit var mediaPlayer : MediaPlayer
+    private var mediaPlayer : MediaPlayer? = null
     private lateinit var binding: FragmentPlayContentLightBinding
     private val args : PlayContentLightFragmentArgs by navArgs()
+
+    var todayTimeMeditate : Long = 0
+    var totalTimeMeditate : Long = 0
+    var sessionsCompleted : Long = 0
+
+    private lateinit var statisticViewModel: StatisticViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +45,8 @@ class PlayContentLightFragment : Fragment() {
         returnTransition = MaterialFadeThrough().apply {
             duration = 100L
         }
+
+        statisticViewModel = ViewModelProvider(this)[StatisticViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -38,8 +56,21 @@ class PlayContentLightFragment : Fragment() {
         val content = args.content
         val audio = args.audio
 
+
         binding = FragmentPlayContentLightBinding.inflate(layoutInflater, container, false)
         val view = binding.root
+
+        statisticViewModel.getData()
+        statisticViewModel.statisticLiveData.observe(viewLifecycleOwner, Observer { statistic ->
+            if (statistic != null){
+                statistic.todayTimeMeditate?.let { todayTimeMeditate = it }
+                statistic.totalTimeMeditate?.let { totalTimeMeditate = it }
+                statistic.sessionsCompleted?.let { sessionsCompleted = it }
+
+            }else{
+                statisticViewModel.createData(Statistic(0,0, 0))
+            }
+        })
 
         when(content.type){
             "Sound" -> {
@@ -61,46 +92,78 @@ class PlayContentLightFragment : Fragment() {
         binding.lyAction.setOnClickListener { handleAction() }
 
         binding.imgClose.setOnClickListener {
-            handleClose()
+            findNavController().popBackStack()
         }
 
-        mediaPlayer.setOnCompletionListener {
-            Handler().postDelayed({
-                handleClose()
-            }, 2000)
+        mediaPlayer?.let {
+            it.setOnCompletionListener {
+
+                GlobalScope.launch(Dispatchers.Main) {
+
+                    val newTodayMeditate = todayTimeMeditate + it.duration
+                    val newTotalTimeMeditate = totalTimeMeditate + it.duration
+
+                    when(content.type){
+                        "Course" -> {
+                            var newSessions = sessionsCompleted
+                            newSessions += 1
+
+                            statisticViewModel.updateData(
+                                Statistic(newTodayMeditate, newTotalTimeMeditate, newSessions)
+                            )
+                        }
+                        "Sound" -> statisticViewModel.updateData(
+                            Statistic(newTodayMeditate, newTotalTimeMeditate, 0)
+                        )
+                    }
+
+                    delay(2000)
+//                handleClose()
+                    findNavController().popBackStack()
+                }
+            }
         }
+
 
         return view
     }
 
     private fun handleClose() {
-        mediaPlayer.stop()
-        mediaPlayer.release()
+        mediaPlayer?.let {
+            it.stop()
+            it.release()
+        }
+
         findNavController().popBackStack()
     }
 
     private fun handleAction() {
-        if (mediaPlayer != null && mediaPlayer.isPlaying) {
-            mediaPlayer.pause()
-            binding.imgAction.setImageResource(R.drawable.ic_play)
-        } else if (mediaPlayer != null && !mediaPlayer.isPlaying){
-            mediaPlayer.start()
-            binding.imgAction.setImageResource(R.drawable.ic_pause)
+        mediaPlayer?.let {
+            if (it.isPlaying) {
+                it.pause()
+                binding.imgAction.setImageResource(R.drawable.ic_play)
+            } else if (!it.isPlaying){
+                it.start()
+                binding.imgAction.setImageResource(R.drawable.ic_pause)
+            }
         }
     }
 
     private fun initPlay(audio: String) {
         mediaPlayer = MediaPlayer()
-        mediaPlayer.setDataSource(audio)
-        mediaPlayer.prepareAsync()
-        mediaPlayer.setOnPreparedListener {
-            mediaPlayer.start()
-            binding.imgAction.setImageResource(R.drawable.ic_pause)
-            binding.lyAction.visibility = View.VISIBLE
-            binding.lyProgress.visibility = View.INVISIBLE
+        mediaPlayer?.let { player ->
+            player.setDataSource(audio)
+            player.prepareAsync()
+            player.setOnPreparedListener {
+                it.start()
+                binding.imgAction.setImageResource(R.drawable.ic_pause)
+                binding.lyAction.visibility = View.VISIBLE
+                binding.lyProgress.visibility = View.INVISIBLE
 
-            initProgressbar(mediaPlayer)
+                initProgressbar(it)
+            }
         }
+
     }
 
     private fun initProgressbar(mediaPlayer: MediaPlayer) {
@@ -126,8 +189,19 @@ class PlayContentLightFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        mediaPlayer.stop()
-        mediaPlayer.release()
+
+        mediaPlayer?.let {
+            try {
+                it.stop()
+                it.release()
+                mediaPlayer = null
+            } catch (e: java.lang.Exception) {
+                e.printStackTrace()
+            }
+        }
+//
+//        mediaPlayer.stop()
+//        mediaPlayer.release()
     }
 
 }

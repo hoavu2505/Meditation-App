@@ -54,6 +54,10 @@
     <string name="meditate_reminder_title">Đến giờ rồi!!!</string>
     <string name="meditate_reminder_des">Hãy bắt đầu thiền thôi nào.</string>
 
+    <string name="today_time_meditate">Hôm nay đã thiền được</string>
+    <string name="total_time_meditate">Tổng thời gian đã thiền</string>
+    <string name="sessions_complete">Số bài học hoàn thành</string>
+
     <string name="bed_time_note">Nhắc nhở này nhằm chuẩn bị cho giấc ngủ. \nChúng tôi khuyến nghị nên đặt thời gian chuẩn bị trước khi ngủ khoảng 30 phút.</string>
 
     <string name="web_client_id">377456162285-fsbob9g6n6siteegvqgqnq80ou7d6ga5.apps.googleusercontent.com</string>

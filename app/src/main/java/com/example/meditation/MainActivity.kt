@@ -1,22 +1,16 @@
 package com.example.meditation
 
-import android.content.Context
-import android.content.pm.PackageManager
-import android.content.res.ColorStateList
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Base64
-import android.util.Log
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.*
 import com.example.meditation.databinding.ActivityMainBinding
 import com.example.meditation.theme.NavBar
-import com.example.meditation.util.CheckingInternet
-import java.security.MessageDigest
+import com.example.meditation.util.ResetTodayMeditateWorker
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
@@ -61,6 +55,46 @@ class MainActivity : AppCompatActivity() {
 
 //        printHashKey(applicationContext)
 
+        resetTodayMeditate(0,5)
+
+    }
+
+    private fun resetTodayMeditate(hour: Int, minute : Int) {
+
+        val calendar: Calendar = Calendar.getInstance()
+        val nowMillis: Long = calendar.getTimeInMillis()
+
+        if (calendar.get(Calendar.HOUR_OF_DAY) > hour ||
+            calendar.get(Calendar.HOUR_OF_DAY) === hour && calendar.get(Calendar.MINUTE) + 1 >= minute
+        ) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1)
+        }
+
+        calendar.set(Calendar.HOUR_OF_DAY, hour)
+        calendar.set(Calendar.MINUTE, minute)
+
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+        val diff: Long = calendar.getTimeInMillis() - nowMillis
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val mRequest = PeriodicWorkRequest.Builder(
+            ResetTodayMeditateWorker::class.java,
+            24,
+            TimeUnit.HOURS
+        ).setInitialDelay(diff, TimeUnit.MILLISECONDS)
+            .setConstraints(constraints).build()
+
+//        WorkManager.getInstance(this)
+//            .enqueueUniquePeriodicWork(
+//                "resetTodayTime",
+//                ExistingPeriodicWorkPolicy.KEEP,
+//                mRequest
+//            )
+        WorkManager.getInstance(this).enqueue(mRequest)
     }
 
 //    private fun printHashKey(context: Context) {

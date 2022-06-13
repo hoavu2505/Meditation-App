@@ -27,8 +27,8 @@ class MeditateReminderFragment : Fragment(), TimePickerDialog.OnTimeSetListener 
 
     private lateinit var binding: FragmentMeditateReminderBinding
     private lateinit var meditateReminderViewModel : MeditateReminderViewModel
-    var hour = 0
-    var minute  = 0
+    private var hour = 0
+    private var minute  = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

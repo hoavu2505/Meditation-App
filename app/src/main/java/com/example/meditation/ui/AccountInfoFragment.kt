@@ -26,6 +26,8 @@ import com.bumptech.glide.Glide
 import com.example.meditation.R
 import com.example.meditation.constant.Constant
 import com.example.meditation.databinding.FragmentAccountInfoBinding
+import com.example.meditation.model.Statistic
+import com.example.meditation.viewmodel.StatisticViewModel
 import com.example.meditation.viewmodel.UserViewModel
 import com.google.android.material.transition.MaterialElevationScale
 import com.google.android.material.transition.MaterialFadeThrough
@@ -48,6 +50,7 @@ class AccountInfoFragment : Fragment(), LifecycleOwner {
     private lateinit var docRef : DocumentReference
 
     private lateinit var userViewModel: UserViewModel
+    private lateinit var statisticViewModel: StatisticViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +64,7 @@ class AccountInfoFragment : Fragment(), LifecycleOwner {
         }
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        statisticViewModel = ViewModelProvider(this)[StatisticViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -101,6 +105,37 @@ class AccountInfoFragment : Fragment(), LifecycleOwner {
                             .show()
                     }
                 }
+            }
+        })
+
+        statisticViewModel.getData()
+        statisticViewModel.statisticLiveData.observe(viewLifecycleOwner, Observer {
+            if (it != null){
+                if (it.totalTimeMeditate != null)   {
+                    val time = (it.totalTimeMeditate!! / 1000) / 60
+                    binding.tvTotalTimeMeditate.text = time.toString()
+                }
+                if (it.sessionsCompleted != null)   binding.tvSession.text = it.sessionsCompleted.toString()
+
+                when{
+                    it.todayTimeMeditate != null -> {
+                        val time = (it.todayTimeMeditate!! / 1000) / 60
+                        binding.tvTodayTimeMeditate.text = time.toString()
+                    }
+                    it.totalTimeMeditate != null -> {
+                        val time = (it.totalTimeMeditate!! / 1000) / 60
+                        binding.tvTotalTimeMeditate.text = time.toString()
+                    }
+                    it.sessionsCompleted != null -> {
+                        binding.tvSession.text = it.sessionsCompleted.toString()
+                    }
+
+                }
+            }
+            else{
+                statisticViewModel.createData(Statistic(0,0, 0))
+//                binding.tvTotalTimeMeditate.text = "0"
+//                binding.tvSession.text = "0"
             }
         })
 

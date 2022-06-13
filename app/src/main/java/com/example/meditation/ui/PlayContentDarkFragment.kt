@@ -14,10 +14,14 @@ import com.example.meditation.databinding.FragmentPlayContentDarkBinding
 import com.example.meditation.model.Content
 import com.example.meditation.theme.Theme
 import com.google.android.material.transition.MaterialFadeThrough
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class PlayContentDarkFragment : Fragment() {
 
-    private lateinit var mediaPlayer: MediaPlayer
+    private var mediaPlayer: MediaPlayer? = null
     private lateinit var binding: FragmentPlayContentDarkBinding
     private val args : PlayContentDarkFragmentArgs by navArgs()
 
@@ -51,44 +55,56 @@ class PlayContentDarkFragment : Fragment() {
 
         binding.lyAction.setOnClickListener { handleAction() }
 
-        binding.imgClose.setOnClickListener { handleClose() }
+        binding.imgClose.setOnClickListener { findNavController().popBackStack() }
 
-        mediaPlayer.setOnCompletionListener {
-            Handler().postDelayed({
-                handleClose()
-            }, 2000)
+        mediaPlayer?.let {
+            it.setOnCompletionListener {
+                GlobalScope.launch(Dispatchers.Main) {
+                    delay(2000)
+//                    handleClose()
+                    findNavController().popBackStack()
+                }
+            }
         }
+
 
         return view
     }
 
     private fun handleClose() {
+        mediaPlayer?.let {
+            it.stop()
+            it.release()
+        }
+
         findNavController().popBackStack()
-        mediaPlayer.stop()
-        mediaPlayer.release()
     }
 
     private fun handleAction() {
-        if (mediaPlayer != null && mediaPlayer.isPlaying) {
-            mediaPlayer.pause()
-            binding.imgAction.setImageResource(R.drawable.ic_play)
-        } else if (mediaPlayer != null && !mediaPlayer.isPlaying){
-            mediaPlayer.start()
-            binding.imgAction.setImageResource(R.drawable.ic_pause)
+        mediaPlayer?.let {
+            if (it.isPlaying) {
+                it.pause()
+                binding.imgAction.setImageResource(R.drawable.ic_play)
+            } else if (!it.isPlaying){
+                it.start()
+                binding.imgAction.setImageResource(R.drawable.ic_pause)
+            }
         }
     }
 
     private fun initPlay(audio: String) {
         mediaPlayer = MediaPlayer()
-        mediaPlayer.setDataSource(audio)
-        mediaPlayer.prepareAsync()
-        mediaPlayer.setOnPreparedListener {
-            mediaPlayer.start()
-            binding.imgAction.setImageResource(R.drawable.ic_pause)
-            binding.lyAction.visibility = View.VISIBLE
-            binding.lyProgress.visibility = View.INVISIBLE
+        mediaPlayer?.let { player ->
+            player.setDataSource(audio)
+            player.prepareAsync()
+            player.setOnPreparedListener {
+                it.start()
+                binding.imgAction.setImageResource(R.drawable.ic_pause)
+                binding.lyAction.visibility = View.VISIBLE
+                binding.lyProgress.visibility = View.INVISIBLE
 
-            initProgressbar(mediaPlayer)
+                initProgressbar(it)
+            }
         }
     }
 
@@ -115,8 +131,16 @@ class PlayContentDarkFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        mediaPlayer.stop()
-        mediaPlayer.release()
+
+        mediaPlayer?.let {
+            try {
+                it.stop()
+                it.release()
+                mediaPlayer = null
+            } catch (e: java.lang.Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
 }
