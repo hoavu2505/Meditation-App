@@ -61,36 +61,36 @@ class StatisticRepository {
     }
 
     fun resetTodayTime(){
-        val docRef = db.collection("User")
-            .document(mAuth.currentUser!!.uid)
-            .collection("UserStatistic")
-            .document("Statistics")
+//        val docRef = db.collection("User")
+//            .document(mAuth.currentUser!!.uid)
+//            .collection("UserStatistic")
+//            .document("Statistics")
+//
+//        docRef.update("todayTimeMeditate", 0)
 
-        docRef.update("todayTimeMeditate", 0)
 
+        //Another solution
+        val userID = ArrayList<String>()
 
-//        //Another solution
-//        val userID = ArrayList<String>()
-//
-//        val docRefUserID = db.collection("User")
-//        docRefUserID.get().addOnSuccessListener { result ->
-//            if (result != null){
-//                for (doc in result){
-//                    userID.add(doc.data["id"] as String)
-//                }
-//            }
-//
-//            //Reset TodayTime for every user
-//            for (id in userID){
-//                val docRef = db.collection("User")
-//                    .document(id)
-//                    .collection("UserStatistic")
-//                    .document("Statistics")
-//
-//                docRef.update("todayTimeMeditate", 0)
-//            }
-//
-//        }
+        val docRefUserID = db.collection("User")
+        docRefUserID.get().addOnSuccessListener { result ->
+            if (result != null){
+                for (doc in result){
+                    userID.add(doc.data["id"] as String)
+                }
+            }
+
+            //Reset TodayTime for every user
+            for (id in userID){
+                val docRef = db.collection("User")
+                    .document(id)
+                    .collection("UserStatistic")
+                    .document("Statistics")
+
+                docRef.update("todayTimeMeditate", 0)
+            }
+
+        }
 
     }
 
