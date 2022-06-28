@@ -95,7 +95,7 @@ class PlayContentLightFragment : Fragment(), LifecycleOwner {
             findNavController().popBackStack()
         }
 
-        mediaPlayer?.let {
+        mediaPlayer?.let { it ->
             it.setOnCompletionListener {
 
                 GlobalScope.launch(Dispatchers.Main) {
@@ -120,8 +120,10 @@ class PlayContentLightFragment : Fragment(), LifecycleOwner {
                     delay(2000)
 //                handleClose()
                     findNavController().popBackStack()
+
                 }
             }
+
         }
 
 

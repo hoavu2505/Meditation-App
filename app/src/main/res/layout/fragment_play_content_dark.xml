@@ -122,4 +122,16 @@
         app:layout_constraintTop_toBottomOf="@id/ly_action"
         android:progressDrawable="@drawable/progressbar_drawable"/>
 
+    <ImageView
+        android:id="@+id/img_replay"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progressBar"
+        android:src="@drawable/ic_replay_disable"
+        android:layout_marginTop="40dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,10 @@
 package com.example.meditation.ui
 
+import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +26,8 @@ class PlayContentDarkFragment : Fragment() {
     private var mediaPlayer: MediaPlayer? = null
     private lateinit var binding: FragmentPlayContentDarkBinding
     private val args : PlayContentDarkFragmentArgs by navArgs()
+
+    private var isReplay : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,11 +66,25 @@ class PlayContentDarkFragment : Fragment() {
                 GlobalScope.launch(Dispatchers.Main) {
                     delay(2000)
 //                    handleClose()
-                    findNavController().popBackStack()
+                    if (!isReplay){
+                        findNavController().popBackStack()
+                    }else{
+                        it.start()
+                    }
+
                 }
             }
         }
 
+        binding.imgReplay.setOnClickListener {
+            isReplay = if (!isReplay) {
+                binding.imgReplay.setImageResource(R.drawable.ic_replay_enable)
+                true
+            }else{
+                binding.imgReplay.setImageResource(R.drawable.ic_replay_disable)
+                false
+            }
+        }
 
         return view
     }
